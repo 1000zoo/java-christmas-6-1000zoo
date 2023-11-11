@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 public class Date {
 
+    private final static String INVALID_RANGE_INPUT_ERROR_MESSAGE = "1 ~ 31 사이의 정수만 입력해주세요.";
+
     private final static int YEAR = 2023;
     private final static int MONTH = 12;
     private final static int MIN_DAY = 1;
@@ -35,7 +37,7 @@ public class Date {
 
     private void validate(int day) {
         if (day < MIN_DAY || day > MAX_DAY) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_RANGE_INPUT_ERROR_MESSAGE);
         }
     }
 }
