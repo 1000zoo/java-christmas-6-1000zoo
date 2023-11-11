@@ -4,7 +4,7 @@ import christmas.validator.IntegerInputValidator;
 import christmas.validator.Validator;
 import christmas.vo.Date;
 
-public class DateParser extends InputParser<Date> {
+public class DateInputParser extends InputParser<Date> {
 
     private final static Validator<String> validator = new IntegerInputValidator();
 
