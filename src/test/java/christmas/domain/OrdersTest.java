@@ -10,9 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class OrderTest {
+class OrdersTest {
 
-    private Order order;
+    private Orders orders;
 
     @BeforeEach
     void setUp() {
@@ -21,20 +21,20 @@ class OrderTest {
         map.put(MenuInformation.of(List.of("티본스테이크", "55000", "MAIN")), 3);
         map.put(MenuInformation.of(List.of("초코케이크", "15000", "DESSERT")), 1);
 
-        order = new Order(map);
+        orders = new Orders(map);
     }
 
     @Test
     @DisplayName("총 주문 수량 테스트")
     void orderQuantities() {
-        int quantities = order.calculateTotalQuantities();
+        int quantities = orders.calculateTotalQuantities();
         assertThat(quantities).isEqualTo(6);
     }
 
     @Test
     @DisplayName("총 주문 금액 테스트")
     void totalPrice() {
-        int totalPrice = order.calculateTotalPrice();
+        int totalPrice = orders.calculateTotalPrice();
         int answerPrice = 6000 * 2 + 55000 * 3 + 15000;
         assertThat(totalPrice).isEqualTo(answerPrice);
     }

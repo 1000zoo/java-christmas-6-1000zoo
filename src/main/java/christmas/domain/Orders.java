@@ -3,11 +3,11 @@ package christmas.domain;
 import christmas.vo.MenuInformation;
 import java.util.Map;
 
-public class Order {
+public class Orders {
 
     private final Map<MenuInformation, Integer> orders;
 
-    public Order(Map<MenuInformation, Integer> orders) {
+    public Orders(Map<MenuInformation, Integer> orders) {
         this.orders = orders;
     }
 
