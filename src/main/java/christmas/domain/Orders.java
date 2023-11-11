@@ -1,23 +1,20 @@
 package christmas.domain;
 
-import christmas.vo.MenuInformation;
-import java.util.Map;
+import java.util.List;
 
 public class Orders {
 
-    private final Map<MenuInformation, Integer> orders;
+    private final List<Order> orders;
 
-    public Orders(Map<MenuInformation, Integer> orders) {
+    public Orders(List<Order> orders) {
         this.orders = orders;
     }
 
     public int calculateTotalQuantities() {
-        return orders.values().stream().reduce(Integer::sum).orElse(0);
+        return orders.stream().mapToInt(Order::getQuantity).sum();
     }
 
     public int calculateTotalPrice() {
-        return orders.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().price() * entry.getValue())
-                .sum();
+        return orders.stream().mapToInt(Order::getTotalPrice).sum();
     }
 }

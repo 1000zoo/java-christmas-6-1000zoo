@@ -26,4 +26,12 @@ public class Order {
     public int getQuantity() {
         return quantity;
     }
+
+    public int getTotalPrice() {
+        return quantity * menuInformation.price();
+    }
+
+    public MenuType getMenuType() {
+        return menuInformation.menuType();
+    }
 }

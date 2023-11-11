@@ -3,9 +3,8 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.vo.MenuInformation;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,12 +15,12 @@ class OrdersTest {
 
     @BeforeEach
     void setUp() {
-        Map<MenuInformation, Integer> map = new HashMap<>();
-        map.put(MenuInformation.of(List.of("양송이수프", "6000", "APPETIZER")), 2);
-        map.put(MenuInformation.of(List.of("티본스테이크", "55000", "MAIN")), 3);
-        map.put(MenuInformation.of(List.of("초코케이크", "15000", "DESSERT")), 1);
+        List<Order> list = new ArrayList<>();
+        list.add(new Order(MenuInformation.of(List.of("양송이수프", "6000", "APPETIZER")), 2));
+        list.add(new Order(MenuInformation.of(List.of("티본스테이크", "55000", "MAIN")), 3));
+        list.add(new Order(MenuInformation.of(List.of("초코케이크", "15000", "DESSERT")), 1));
 
-        orders = new Orders(map);
+        orders = new Orders(list);
     }
 
     @Test
