@@ -1,15 +1,10 @@
 package christmas.vo;
 
 import christmas.domain.MenuType;
-import christmas.domain.Price;
 import java.util.List;
 import java.util.Objects;
 
-public record MenuInformation(
-        String name,
-        Price price,
-        MenuType menuType
-) {
+public record MenuInformation(String name, Price price, MenuType menuType) {
 
     private final static int NAME_INDEX = 0;
     private final static int PRICE_INDEX = 1;

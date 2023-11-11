@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.vo;
 
 import java.util.Objects;
 
