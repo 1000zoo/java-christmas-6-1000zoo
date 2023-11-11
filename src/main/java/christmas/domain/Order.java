@@ -34,4 +34,8 @@ public class Order {
     public MenuType getMenuType() {
         return menuInformation.menuType();
     }
+
+    public boolean isFood() {
+        return menuInformation.isFood();
+    }
 }

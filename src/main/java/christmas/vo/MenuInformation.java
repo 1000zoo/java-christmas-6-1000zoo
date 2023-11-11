@@ -18,6 +18,10 @@ public record MenuInformation(String name, int price, MenuType menuType) {
         );
     }
 
+    public boolean isFood() {
+        return menuType.isFood();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

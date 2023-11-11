@@ -58,6 +58,16 @@ class OrdersInputParserTest {
     }
 
     @ParameterizedTest
+    @DisplayName("너무 많은 주문을 하면 에러 발생")
+    @ValueSource(strings = {"티본스테이크-10,제로콜라-11"})
+    void orderedTooManyMenu(String input) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> inputParser.parse(input)
+        );
+    }
+
+    @ParameterizedTest
     @DisplayName("중복메뉴를 한 번에 안 시키면 에러 발생")
     @ValueSource(strings = {"제로콜라-1,티본스테이크-2,제로콜라-1"})
     void menuMustBeAppearOnce(String input) {
