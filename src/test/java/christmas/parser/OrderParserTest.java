@@ -31,7 +31,7 @@ class OrderParserTest {
 
     @ParameterizedTest
     @DisplayName("잘못된 주문 형식이 들어오면 에러가 발생")
-    @ValueSource(strings = {"-2", "크리스마스파스타-", "티본스테이크-하나"})
+    @ValueSource(strings = {"-2", "크리스마스파스타-", "티본스테이크-하나", "티본스테이크-2-곱빼기"})
     void invalidOrderParser(String input) {
         assertThrows(
                 IllegalArgumentException.class,
