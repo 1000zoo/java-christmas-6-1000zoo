@@ -1,5 +1,5 @@
 package christmas.parser;
 
-public interface Parser<I, T> {
-    T parse(I input);
+public interface Parser<T, R> {
+    R parse(T input);
 }
