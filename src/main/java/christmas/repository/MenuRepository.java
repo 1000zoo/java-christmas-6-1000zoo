@@ -1,9 +1,12 @@
 package christmas.repository;
 
+import christmas.domain.MenuInformation;
+import christmas.parser.Parser;
 import java.util.List;
+import java.util.Map;
 
-public class MenuRepository {
-    public final static List<String> menuList = List.of(
+public record MenuRepository(Parser<List<String>, Map<String, MenuInformation>> parser) {
+    private final static List<String> menuList = List.of(
             "양송이수프/6000/APPETIZER",
             "타파스/5500/APPETIZER",
             "시저샐러드/8000/APPETIZER",
@@ -17,4 +20,8 @@ public class MenuRepository {
             "레드와인/60000/DRINK",
             "샴페인/25000/DRINK"
     );
+
+    public Map<String, MenuInformation> loadRepository() {
+        return parser.parse(menuList);
+    }
 }
