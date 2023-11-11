@@ -16,7 +16,7 @@ public enum Badge {
         this.name = name;
     }
 
-    public static Badge of(int amount) {
+    public static Badge findByAmount(int amount) {
         return Arrays.stream(values())
                 .filter(badge -> amount >= badge.minimumAmount)
                 .reduce((first, second) -> second)

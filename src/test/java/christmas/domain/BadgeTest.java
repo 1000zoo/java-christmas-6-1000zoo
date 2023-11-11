@@ -24,7 +24,7 @@ class BadgeTest {
     @DisplayName("금액 별 배지 부여 테스트")
     @MethodSource("provideBadgeData")
     void getBadgeTest(Badge answerBadge, int amount) {
-        Badge resultBadge = Badge.of(amount);
+        Badge resultBadge = Badge.findByAmount(amount);
 
         assertThat(resultBadge).isEqualTo(answerBadge);
     }
