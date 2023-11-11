@@ -1,18 +1,17 @@
 package christmas.domain;
 
-import java.util.HashMap;
+import christmas.parser.RepositoryParser;
+import christmas.repository.MenuRepository;
+import christmas.vo.MenuInformation;
 import java.util.Map;
 
 public class Menu {
 
-    Map<String, MenuInformation> repository;
+    private final Map<String, MenuInformation> repository;
 
     public Menu() {
-        repository = new HashMap<>();
-    }
-
-    private void setRepository() {
-
+        MenuRepository menuRepository = new MenuRepository(new RepositoryParser());
+        repository = menuRepository.loadRepository();
     }
 
     public boolean containsKey(String name) {
@@ -27,6 +26,6 @@ public class Menu {
         if (notContainsKey(name)) {
             throw new IllegalArgumentException();
         }
-        return null;
+        return repository.get(name);
     }
 }

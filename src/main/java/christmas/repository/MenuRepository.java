@@ -1,7 +1,7 @@
 package christmas.repository;
 
-import christmas.domain.MenuInformation;
 import christmas.parser.Parser;
+import christmas.vo.MenuInformation;
 import java.util.List;
 import java.util.Map;
 

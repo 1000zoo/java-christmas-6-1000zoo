@@ -1,6 +1,6 @@
 package christmas.parser;
 
-import christmas.domain.MenuInformation;
+import christmas.vo.MenuInformation;
 import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;

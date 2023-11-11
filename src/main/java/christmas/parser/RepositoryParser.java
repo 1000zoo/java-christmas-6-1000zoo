@@ -1,6 +1,6 @@
 package christmas.parser;
 
-import christmas.domain.MenuInformation;
+import christmas.vo.MenuInformation;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
