@@ -16,6 +16,8 @@ public class Order {
     }
 
     public int calculateTotalPrice() {
-        return 0;
+        return orders.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().price() * entry.getValue())
+                .sum();
     }
 }
