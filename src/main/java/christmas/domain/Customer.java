@@ -4,6 +4,7 @@ import christmas.vo.Date;
 
 public class Customer {
 
+
     private final Date date;
     private final Orders orders;
 

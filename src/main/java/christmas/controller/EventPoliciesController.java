@@ -14,6 +14,7 @@ import java.util.List;
 
 public class EventPoliciesController {
 
+    private final static int DOESNT_EXIST = 0;
     private final static int MIN_AMOUNT_FOR_DISCOUNT = 10_000;
     private final static int MIN_AMOUNT_FOR_GIVEAWAY = 120_000;
 
@@ -45,13 +46,13 @@ public class EventPoliciesController {
     }
 
     private void addWeekdayDiscountPolicy() {
-        if (customer.orderAtWeekday()) {
+        if (customer.orderAtWeekday() && customer.countDessert() > DOESNT_EXIST) {
             policyList.add(new WeekdayDiscountPolicy(customer.countDessert()));
         }
     }
 
     private void addWeekendDiscountPolicy() {
-        if (customer.orderAtWeekend()) {
+        if (customer.orderAtWeekend() && customer.countMain() > DOESNT_EXIST) {
             policyList.add(new WeekendDiscountPolicy(customer.countMain()));
         }
     }

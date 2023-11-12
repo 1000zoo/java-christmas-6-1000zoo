@@ -16,6 +16,18 @@ public class EventPolicies implements Iterable<SpecialEventPolicy> {
         return new EventPolicies(policies);
     }
 
+    public int getDiscountAmount() {
+        return policies.stream()
+                .mapToInt(SpecialEventPolicy::getDiscountAmount)
+                .sum();
+    }
+
+    public int getTotalBenefit() {
+        return policies.stream()
+                .mapToInt(SpecialEventPolicy::getTotalBenefit)
+                .sum();
+    }
+
     @Override
     public Iterator<SpecialEventPolicy> iterator() {
         return policies.iterator();
