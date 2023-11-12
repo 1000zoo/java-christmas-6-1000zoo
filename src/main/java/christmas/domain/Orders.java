@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.dto.OrdersDTO;
+import java.util.Collections;
 import java.util.List;
 
 public class Orders {
@@ -53,5 +55,9 @@ public class Orders {
         return orders.stream()
                 .filter(order -> order.getMenuType() == MenuType.MAIN)
                 .mapToInt(Order::getQuantity).sum();
+    }
+
+    public OrdersDTO toDto() {
+        return new OrdersDTO(Collections.unmodifiableList(orders));
     }
 }
