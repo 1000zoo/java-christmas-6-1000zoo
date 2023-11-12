@@ -35,6 +35,14 @@ public class Date {
         return dayOfWeek == DayOfWeek.SUNDAY || day == CHRISTMAS;
     }
 
+    public boolean hasChristmasPassed() {
+        return day > CHRISTMAS;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
     private void validate(int day) {
         if (day < MIN_DAY || day > MAX_DAY) {
             throw new IllegalArgumentException(INVALID_RANGE_INPUT_ERROR_MESSAGE);
