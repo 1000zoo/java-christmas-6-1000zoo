@@ -65,12 +65,15 @@ class EventPoliciesControllerTest {
     @DisplayName("경우의 수 별로 총 얼마의 할인을 받는 지 테스트")
     @CsvSource(value = {
             "31:양송이수프:1:0",     // 혜택 없음
-            "30:양송이수프:2:0",     // 주말할인 (메인메뉴 0)
-            "31:양송이수프:2:2",     // 평일할인 + 별표 할인
-            "24:양송이수프:2:3",     // 평일할인 + 별표 할인 + 디데이 할인
-            "24:티본스테이크:3:4",    // 평일할인 + 별표할인 + 디데이할인 + 샴페인 증정
+            "30:양송이수프:2:0",     // 혜택 없음
+            "31:양송이수프:2:1000",     // 별표 할인 (1000)
+            "24:양송이수프:2:4300",     // 별표 할인 (1000) + 디데이 할인 (3300)
+            "22:티본스테이크:3:9169",   // 주말할인 (2023 * 3) + 디데이할인 (3100) + 샴페인 증정 (0)
+            "24:초코케이크:10:24530",    // 평일할인 (20230) + 별표할인 (1000) + 디데이할인 (3300) + 샴페인 증정 (0)
     }, delimiter = ':')
     void discountAmount(int day, String menuName, int quantity, int answer) {
+        setUp(day, menuName, quantity);
+
         EventPoliciesController controller = new EventPoliciesController(customer, menuInformation);
         EventPolicies policies = controller.createEventPolicies();
 
