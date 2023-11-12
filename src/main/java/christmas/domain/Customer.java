@@ -1,9 +1,9 @@
 package christmas.domain;
 
+import christmas.dto.CustomerDTO;
 import christmas.vo.Date;
 
 public class Customer {
-
 
     private final Date date;
     private final Orders orders;
@@ -47,5 +47,9 @@ public class Customer {
 
     public boolean orderAtSpecialDay() {
         return date.isSpecialDay();
+    }
+
+    public CustomerDTO toDTO() {
+        return new CustomerDTO(date.getDay(), orders.toDto());
     }
 }
