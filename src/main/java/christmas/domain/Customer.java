@@ -16,6 +16,14 @@ public class Customer {
         return orders.calculateTotalPrice();
     }
 
+    public int countDessert() {
+        return orders.countDessert();
+    }
+
+    public int countMain() {
+        return orders.countMain();
+    }
+
     public int getDay() {
         return date.getDay();
     }

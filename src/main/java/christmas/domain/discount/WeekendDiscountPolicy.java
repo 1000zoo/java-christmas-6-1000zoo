@@ -1,20 +1,18 @@
 package christmas.domain.discount;
 
-import christmas.domain.Orders;
-
 public class WeekendDiscountPolicy implements SpecialEventPolicy {
 
     private final static int DISCOUNT_AMOUNT = 2023;
 
-    private final Orders orders;
+    private final int countMain;
 
-    public WeekendDiscountPolicy(Orders orders) {
-        this.orders = orders;
+    public WeekendDiscountPolicy(int countMain) {
+        this.countMain = countMain;
     }
 
     @Override
     public int getDiscountAmount() {
-        return DISCOUNT_AMOUNT * orders.countMain();
+        return DISCOUNT_AMOUNT * countMain;
     }
 
     @Override
