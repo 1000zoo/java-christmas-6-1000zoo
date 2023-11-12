@@ -13,8 +13,8 @@ public class DateTest {
         Date nonNormalDay = new Date(1);
         Date normalDay = new Date(6);
 
-        boolean falseResult = nonNormalDay.isNormalDay();
-        boolean trueResult = normalDay.isNormalDay();
+        boolean falseResult = nonNormalDay.isWeekday();
+        boolean trueResult = normalDay.isWeekday();
 
         assertThat(falseResult).isEqualTo(false);
         assertThat(trueResult).isEqualTo(true);

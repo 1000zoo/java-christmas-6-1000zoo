@@ -23,7 +23,7 @@ public class Date {
         this.dayOfWeek = date.getDayOfWeek();
     }
 
-    public boolean isNormalDay() {
+    public boolean isWeekday() {
         return !isWeekend() && !isSpecialDay();
     }
 
