@@ -4,7 +4,6 @@ import christmas.configuration.InputConfiguration;
 import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
-import christmas.view.output.OutputView;
 import christmas.vo.Date;
 
 public class Controller {
@@ -12,9 +11,11 @@ public class Controller {
     private final static String WELCOME_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
 
     private final Menu menu;
+    private final OutputController outputController;
 
     public Controller() {
         menu = new Menu();
+        outputController = new OutputController();
     }
 
     public void start() {
@@ -22,7 +23,6 @@ public class Controller {
     }
 
     private Customer createCustomer() {
-        OutputView.printMessage(WELCOME_MESSAGE);
         Date date = askVisitDate();
         Orders orders = takeOrder();
         return new Customer(date, orders);
