@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.constant.InstructionMessage;
 import christmas.dto.CustomerDTO;
 import christmas.dto.OrderDTO;
 import christmas.dto.OrderDTOs;
@@ -10,15 +11,8 @@ public class OutputController {
 
     private final static String WELCOME_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     private final static String DATE_RESULT_FORMAT = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
-    private final static String ORDER_MENU_INSTRUCTION = "<주문 메뉴>";
     private final static String ORDER_RESULT_FORMAT = "%s %d개";
-    private final static String TOTAL_AMOUNT_INSTRUCTION = "<할인 전 총주문 금액>";
     private final static String KOREAN_WON_FORMAT = "#,###원";
-    private final static String GIVEAWAY_MENU_INSTRUCTION = "<증정 메뉴>";
-    private final static String EVENT_RESULT_INSTRUCTION = "<혜택 내역>";
-    private final static String BENEFITS_RESULT_INSTRUCTION = "<총혜택 금액>";
-    private final static String AFTER_DISCOUNT_INSTRUCTION = "<할인 후 예상 결제 금액>";
-    private final static String BADGE_RESULT_INSTRUCTION = "<12월 이벤트 배지>";
 
     private final OutputView outputView;
 
@@ -40,14 +34,14 @@ public class OutputController {
     }
 
     private void printOrdersResult(OrderDTOs orderDTOs) {
-        outputView.printMessage(ORDER_MENU_INSTRUCTION);
+        outputView.printMessage(InstructionMessage.ORDER_MENU.getMessage());
         orderDTOs.orderDTOs().forEach(this::printOrderResult);
         printTotalAmount(orderDTOs.totalPrice());
     }
 
     private void printTotalAmount(int amount) {
         DecimalFormat formatter = new DecimalFormat(KOREAN_WON_FORMAT);
-        outputView.printMessage(TOTAL_AMOUNT_INSTRUCTION);
+        outputView.printMessage(InstructionMessage.TOTAL_AMOUNT.getMessage());
         outputView.printMessage(formatter.format(amount));
     }
 
