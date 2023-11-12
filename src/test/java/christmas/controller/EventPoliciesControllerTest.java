@@ -1,7 +1,6 @@
 package christmas.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.domain.Customer;
 import christmas.domain.Menu;
@@ -12,44 +11,29 @@ import christmas.domain.discount.SpecialEventPolicy;
 import christmas.vo.Date;
 import christmas.vo.MenuInformation;
 import java.util.List;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class EventPoliciesControllerTest {
 
     private final static Menu menu = new Menu();
+    private final static MenuInformation menuInformation = menu.getInformationOf("샴페인");
 
-    private final static Arguments hasZeroPolicy =
-            arguments(new Customer(new Date(31), createOrdersOf("양송이수프", 1)), 0);
-    private final static Arguments hasOnePolicy =
-            arguments(new Customer(new Date(30), createOrdersOf("양송이수프", 2)), 1);
-    private final static Arguments hasTwoPolicy =
-            arguments(new Customer(new Date(31), createOrdersOf("양송이수프", 2)), 2);
-    private final static Arguments hasThreePolicy =
-            arguments(new Customer(new Date(24), createOrdersOf("양송이수프", 2)), 3);
-    private final static Arguments hasFourPolicy =
-            arguments(new Customer(new Date(24), createOrdersOf("티본스테이크", 3)), 4);
+    private Customer customer;
 
-    private static Orders createOrdersOf(String menuName, int quantity) {
-        return new Orders(List.of(new Order(menu.getInformationOf(menuName), quantity)));
+    private void setUp(int day, String menuName, int quantity) {
+        Date date = new Date(day);
+        customer = new Customer(date, createOrdersOf(menuName, quantity));
     }
 
-    private static Stream<Arguments> provideCustomerDataAndSizeOfPolicy() {
-        return Stream.of(
-                hasZeroPolicy,
-                hasOnePolicy,   // 주말할인
-                hasTwoPolicy,   // 평일할인 + 별표할인
-                hasThreePolicy, // 평일할인 + 별표할인 + 디데이할인
-                hasFourPolicy   // 평일할인 + 별표할인 + 디데이할인 + 증정이벤트
-        );
+    private Orders createOrdersOf(String menuName, int quantity) {
+        return new Orders(List.of(new Order(menu.getInformationOf(menuName), quantity)));
     }
 
     private static int countPolicies(EventPolicies policies) {
         int count = 0;
-        for (SpecialEventPolicy policy : policies) {
+        for (SpecialEventPolicy ignored : policies) {
             count++;
         }
         return count;
@@ -57,15 +41,42 @@ class EventPoliciesControllerTest {
 
     @ParameterizedTest
     @DisplayName("경우의 수 별로 총 몇개의 혜택을 받는 지 테스트")
-    @MethodSource("provideCustomerDataAndSizeOfPolicy")
-    void countPolicySize(Customer customer, int answer) {
-        MenuInformation menuInformation = menu.getInformationOf("샴페인");
+    @CsvSource(value = {
+            "31:양송이수프:1:0",     // 혜택 없음
+            "30:양송이수프:2:0",     // 혜택 없음
+            "31:양송이수프:2:1",     // 별표 할인
+            "24:양송이수프:2:2",     // 별표 할인 + 디데이 할인
+            "22:티본스테이크:3:3",   // 주말할인 + 디데이할인 + 샴페인 증정
+            "24:초코케이크:10:4",    // 평일할인 + 별표할인 + 디데이할인 + 샴페인 증정
+    }, delimiter = ':')
+    void countPolicySize(int day, String menuName, int quantity, int answer) {
+        setUp(day, menuName, quantity);
+
         EventPoliciesController controller = new EventPoliciesController(customer, menuInformation);
         EventPolicies policies = controller.createEventPolicies();
 
         int size = countPolicies(policies);
 
         assertThat(size).isEqualTo(answer);
+    }
+
+
+    @ParameterizedTest
+    @DisplayName("경우의 수 별로 총 얼마의 할인을 받는 지 테스트")
+    @CsvSource(value = {
+            "31:양송이수프:1:0",     // 혜택 없음
+            "30:양송이수프:2:0",     // 주말할인 (메인메뉴 0)
+            "31:양송이수프:2:2",     // 평일할인 + 별표 할인
+            "24:양송이수프:2:3",     // 평일할인 + 별표 할인 + 디데이 할인
+            "24:티본스테이크:3:4",    // 평일할인 + 별표할인 + 디데이할인 + 샴페인 증정
+    }, delimiter = ':')
+    void discountAmount(int day, String menuName, int quantity, int answer) {
+        EventPoliciesController controller = new EventPoliciesController(customer, menuInformation);
+        EventPolicies policies = controller.createEventPolicies();
+
+        int discountAmount = policies.getDiscountAmount();
+
+        assertThat(discountAmount).isEqualTo(answer);
     }
 
 }
