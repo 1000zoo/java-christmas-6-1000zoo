@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.constant.InstructionMessage;
+import christmas.constant.SummaryMessage;
 import christmas.dto.CustomerDTO;
 import christmas.dto.OrderDTO;
 import christmas.dto.OrderDTOs;
@@ -34,14 +34,14 @@ public class OutputController {
     }
 
     private void printOrdersResult(OrderDTOs orderDTOs) {
-        outputView.printMessage(InstructionMessage.ORDER_MENU.getMessage());
+        outputView.printMessage(SummaryMessage.ORDER_MENU.getMessage());
         orderDTOs.orderDTOs().forEach(this::printOrderResult);
         printTotalAmount(orderDTOs.totalPrice());
     }
 
     private void printTotalAmount(int amount) {
         DecimalFormat formatter = new DecimalFormat(KOREAN_WON_FORMAT);
-        outputView.printMessage(InstructionMessage.TOTAL_AMOUNT.getMessage());
+        outputView.printMessage(SummaryMessage.TOTAL_AMOUNT.getMessage());
         outputView.printMessage(formatter.format(amount));
     }
 

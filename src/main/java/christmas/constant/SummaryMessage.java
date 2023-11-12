@@ -1,6 +1,6 @@
 package christmas.constant;
 
-public enum InstructionMessage {
+public enum SummaryMessage {
     ORDER_MENU("주문 메뉴"),
     TOTAL_AMOUNT("할인 전 총주문 금액"),
     GIVEAWAY_MENU("증정 메뉴"),
@@ -12,7 +12,7 @@ public enum InstructionMessage {
     private final static String INSTRUCTION_FORMAT = "<%s>";
     private final String message;
 
-    InstructionMessage(String message) {
+    SummaryMessage(String message) {
         this.message = message;
     }
 
