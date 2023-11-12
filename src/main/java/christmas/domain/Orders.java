@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Orders {
 
-    private final static int ZERO_QUANTITY = 0;
     private final static int MAX_ORDER_QUANTITY = 20;
 
     private final List<Order> orders;
@@ -57,6 +56,6 @@ public class Orders {
     }
 
     public OrderDTOs toDto() {
-        return new OrderDTOs(orders.stream().map(Order::toDTO).toList());
+        return new OrderDTOs(orders.stream().map(Order::toDTO).toList(), calculateTotalPrice());
     }
 }
