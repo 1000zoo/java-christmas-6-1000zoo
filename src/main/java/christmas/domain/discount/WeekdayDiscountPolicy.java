@@ -16,4 +16,9 @@ public class WeekdayDiscountPolicy implements SpecialEventPolicy {
     public int getDiscountAmount() {
         return DISCOUNT_AMOUNT * orders.countDessert();
     }
+
+    @Override
+    public int getTotalBenefit() {
+        return getDiscountAmount();
+    }
 }

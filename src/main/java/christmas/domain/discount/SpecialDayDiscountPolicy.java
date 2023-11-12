@@ -8,4 +8,9 @@ public class SpecialDayDiscountPolicy implements SpecialEventPolicy {
     public int getDiscountAmount() {
         return SPECIAL_DISCOUNT_AMOUNT;
     }
+
+    @Override
+    public int getTotalBenefit() {
+        return getDiscountAmount();
+    }
 }

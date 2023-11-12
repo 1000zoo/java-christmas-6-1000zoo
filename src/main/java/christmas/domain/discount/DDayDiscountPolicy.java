@@ -20,4 +20,9 @@ public class DDayDiscountPolicy implements SpecialEventPolicy {
         }
         return START_DISCOUNT_AMOUNT + INCREASE_AMOUNT * (date.getDay());
     }
+
+    @Override
+    public int getTotalBenefit() {
+        return getDiscountAmount();
+    }
 }

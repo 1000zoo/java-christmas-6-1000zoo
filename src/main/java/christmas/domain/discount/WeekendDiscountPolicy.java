@@ -16,4 +16,9 @@ public class WeekendDiscountPolicy implements SpecialEventPolicy {
     public int getDiscountAmount() {
         return DISCOUNT_AMOUNT * orders.countMain();
     }
+
+    @Override
+    public int getTotalBenefit() {
+        return getDiscountAmount();
+    }
 }
