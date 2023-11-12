@@ -24,7 +24,7 @@ public class Date {
     }
 
     public boolean isWeekday() {
-        return !isWeekend() && !isSpecialDay();
+        return !isWeekend();
     }
 
     public boolean isWeekend() {

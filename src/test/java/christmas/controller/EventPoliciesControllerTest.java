@@ -23,7 +23,7 @@ class EventPoliciesControllerTest {
     private final static Menu menu = new Menu();
 
     private final static Arguments hasZeroPolicy =
-            arguments(new Customer(new Date(31), createOrdersOf("양송이수프", 2)), 0);
+            arguments(new Customer(new Date(31), createOrdersOf("양송이수프", 1)), 0);
     private final static Arguments hasOnePolicy =
             arguments(new Customer(new Date(30), createOrdersOf("양송이수프", 2)), 1);
     private final static Arguments hasTwoPolicy =
