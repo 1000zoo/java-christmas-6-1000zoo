@@ -1,4 +1,4 @@
 package christmas.dto;
 
-public record CustomerDTO(int day, OrdersDTO ordersDTO) {
+public record CustomerDTO(int day, OrderDTOs orderDTOs) {
 }

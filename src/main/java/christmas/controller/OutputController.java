@@ -1,7 +1,7 @@
 package christmas.controller;
 
 import christmas.dto.CustomerDTO;
-import christmas.dto.OrdersDTO;
+import christmas.dto.OrderDTOs;
 import christmas.view.output.OutputView;
 
 public class OutputController {
@@ -28,14 +28,14 @@ public class OutputController {
 
     public void printCustomerResults(CustomerDTO customerDTO) {
         printDateResult(customerDTO.day());
-        printOrdersResult(customerDTO.ordersDTO());
+        printOrdersResult(customerDTO.orderDTOs());
     }
 
     private void printDateResult(int day) {
         outputView.printMessage(DATE_RESULT_FORMAT, day);
     }
 
-    private void printOrdersResult(OrdersDTO ordersDTO) {
+    private void printOrdersResult(OrderDTOs orderDTOs) {
         outputView.printMessage(ORDER_MENU_INSTRUCTION);
         // 주문 내역 생성 로직
         // 할인 전 총 주문 금액

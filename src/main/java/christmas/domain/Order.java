@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.dto.OrderDTO;
 import christmas.vo.MenuInformation;
 
 public class Order {
@@ -37,5 +38,9 @@ public class Order {
 
     public boolean isFood() {
         return menuInformation.isFood();
+    }
+
+    public OrderDTO toDTO() {
+        return new OrderDTO(menuInformation.name(), quantity);
     }
 }

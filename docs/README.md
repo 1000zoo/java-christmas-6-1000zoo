@@ -87,7 +87,7 @@
     - [ ] 주문 내역 (OrdersDTO)
 - [ ] OrdersDTO
     - [ ] 할인 전 총 주문 금액
-    - [ ] List\<OrderDTO>
+    - [ ] List<OrderDTO>
 - [ ] OrderDTO
     - [ ] 메뉴 이름
     - [ ] 주문 수량
