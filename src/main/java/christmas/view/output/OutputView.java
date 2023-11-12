@@ -1,10 +1,10 @@
 package christmas.view.output;
 
-public class Output {
+public class OutputView {
 
     private final static String ERROR_PREFIX = "[ERROR] ";
 
-    private Output() {
+    private OutputView() {
     }
 
     public static void printMessage(String message) {

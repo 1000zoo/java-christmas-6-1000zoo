@@ -4,7 +4,7 @@ import christmas.configuration.InputConfiguration;
 import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
-import christmas.view.output.Output;
+import christmas.view.output.OutputView;
 import christmas.vo.Date;
 
 public class Controller {
@@ -22,7 +22,7 @@ public class Controller {
     }
 
     private Customer createCustomer() {
-        Output.printMessage(WELCOME_MESSAGE);
+        OutputView.printMessage(WELCOME_MESSAGE);
         Date date = askVisitDate();
         Orders orders = takeOrder();
         return new Customer(date, orders);
