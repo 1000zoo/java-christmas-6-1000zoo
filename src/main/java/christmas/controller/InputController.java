@@ -1,8 +1,8 @@
 package christmas.controller;
 
 import christmas.parser.InputParser;
-import christmas.view.input.InputView;
-import christmas.view.output.OutputView;
+import christmas.view.InputView;
+import christmas.view.OutputView;
 
 public class InputController<R> {
 

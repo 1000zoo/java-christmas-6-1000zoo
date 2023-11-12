@@ -3,7 +3,7 @@ package christmas.controller;
 import christmas.dto.CustomerDTO;
 import christmas.dto.OrderDTO;
 import christmas.dto.OrderDTOs;
-import christmas.view.output.OutputView;
+import christmas.view.OutputView;
 import java.text.DecimalFormat;
 
 public class OutputController {
