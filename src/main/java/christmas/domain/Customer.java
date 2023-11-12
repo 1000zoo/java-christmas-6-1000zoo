@@ -16,8 +16,8 @@ public class Customer {
         return orders.calculateTotalPrice();
     }
 
-    public boolean orderAfterChristmas() {
-        return date.hasChristmasPassed();
+    public boolean orderBeforeChristmas() {
+        return !date.hasChristmasPassed();
     }
 
     public Date getDate() {
