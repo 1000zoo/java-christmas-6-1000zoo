@@ -16,11 +16,23 @@ public class Customer {
         return orders.calculateTotalPrice();
     }
 
+    public int getDay() {
+        return date.getDay();
+    }
+
     public boolean orderBeforeChristmas() {
         return !date.hasChristmasPassed();
     }
 
-    public Date getDate() {
-        return date;
+    public boolean orderAtWeekday() {
+        return date.isWeekday();
+    }
+
+    public boolean orderAtWeekend() {
+        return date.isWeekend();
+    }
+
+    public boolean orderAtSpecialDay() {
+        return date.isSpecialDay();
     }
 }
