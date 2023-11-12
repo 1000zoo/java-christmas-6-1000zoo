@@ -42,4 +42,16 @@ public class Orders {
     public int calculateTotalPrice() {
         return orders.stream().mapToInt(Order::getTotalPrice).sum();
     }
+
+    public int countDessert() {
+        return orders.stream()
+                .filter(order -> order.getMenuType() == MenuType.DESSERT)
+                .mapToInt(Order::getQuantity).sum();
+    }
+
+    public int countMain() {
+        return orders.stream()
+                .filter(order -> order.getMenuType() == MenuType.MAIN)
+                .mapToInt(Order::getQuantity).sum();
+    }
 }
