@@ -82,15 +82,15 @@
 
 ### DTO
 
-- [ ] CustomerDTO
-    - [ ] 주문 날짜
-    - [ ] 주문 내역 (OrdersDTO)
-- [ ] OrdersDTO
-    - [ ] 할인 전 총 주문 금액
-    - [ ] List<OrderDTO>
-- [ ] OrderDTO
-    - [ ] 메뉴 이름
-    - [ ] 주문 수량
+- [X] CustomerDTO
+    - [X] 주문 날짜
+    - [X] 주문 내역 (OrdersDTO)
+- [X] OrderDTOs
+    - [X] 할인 전 총 주문 금액
+    - [X] List<OrderDTO>
+- [X] OrderDTO
+    - [X] 메뉴 이름
+    - [X] 주문 수량
 - [ ] EventPolicyDTO
     - [ ] 받은 모든 혜택
     - [ ] 증정 메뉴 여부
