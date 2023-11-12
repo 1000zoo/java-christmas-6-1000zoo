@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.constant.InstructionMessage;
 import christmas.constant.SummaryMessage;
 import christmas.dto.CustomerDTO;
 import christmas.dto.OrderDTO;
@@ -9,7 +10,6 @@ import java.text.DecimalFormat;
 
 public class OutputController {
 
-    private final static String WELCOME_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     private final static String DATE_RESULT_FORMAT = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     private final static String ORDER_RESULT_FORMAT = "%s %d개";
     private final static String KOREAN_WON_FORMAT = "#,###원";
@@ -21,7 +21,7 @@ public class OutputController {
     }
 
     public void printWelcomeMessage() {
-        outputView.printMessage(WELCOME_MESSAGE);
+        outputView.printMessage(InstructionMessage.WELCOME.getMessage());
     }
 
     public void printCustomerResults(CustomerDTO customerDTO) {
