@@ -1,11 +1,12 @@
 package christmas.parser;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import christmas.domain.Menu;
+import christmas.domain.Orders;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -82,12 +83,13 @@ class OrdersInputParserTest {
         );
     }
 
-    @Test
-    void splitTest() {
-        String ss = "gg,,";
-        for (String s : ss.split(",")) {
-            System.out.println("s = " + s);
-        }
-        System.out.println("ss.split(\",\").length = " + ss.split(",").length);
+    @ParameterizedTest
+    @DisplayName("올바른 입력이 들어왔다면, 통과")
+    @ValueSource(strings = {"제로콜라-1,티본스테이크-2"})
+    void validInput(String input) {
+        Orders orders = inputParser.parse(input);
+        int totalQuantities = orders.calculateTotalQuantities();
+
+        assertThat(totalQuantities).isEqualTo(3);
     }
 }
