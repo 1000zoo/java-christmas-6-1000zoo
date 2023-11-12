@@ -8,8 +8,6 @@ import christmas.vo.Date;
 
 public class Controller {
 
-    private final static String WELCOME_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
-
     private final Menu menu;
     private final OutputController outputController;
 
@@ -20,9 +18,11 @@ public class Controller {
 
     public void start() {
         Customer customer = createCustomer();
+        outputController.printCustomerResults(customer.toDTO());
     }
 
     private Customer createCustomer() {
+        outputController.printWelcomeMessage();
         Date date = askVisitDate();
         Orders orders = takeOrder();
         return new Customer(date, orders);
