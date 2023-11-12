@@ -10,6 +10,7 @@ import java.util.List;
 public class OrdersInputParser extends InputParser<Orders> {
 
     private final static String ORDER_DELIMITER = ",";
+    private final static String INVALID_DELIMITER = ",,";
 
     private final OrderParser orderParser;
     private final List<Order> orders;
@@ -22,6 +23,9 @@ public class OrdersInputParser extends InputParser<Orders> {
     @Override
     protected void validate(String input) {
         if (input.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        if (input.contains(INVALID_DELIMITER)) {
             throw new IllegalArgumentException();
         }
     }

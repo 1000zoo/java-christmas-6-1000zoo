@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import christmas.domain.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -19,7 +20,11 @@ class OrdersInputParserTest {
 
     @ParameterizedTest
     @DisplayName("형식이 잘못되었다면 에러가 발생")
-    @ValueSource(strings = {"크리스마스파스타,티본스테이크", "크리스마스파스타--1", "제로콜라-1, 타파스-2", "타파스-3-곱빼기", "", "-2"})
+    @ValueSource(strings = {
+            "크리스마스파스타,티본스테이크", "크리스마스파스타--1",
+            "제로콜라-1, 타파스-2", "타파스-3-곱빼기", "", "-2",
+            "해산물파스타-2,,"
+    })
     void invalidInput(String input) {
         assertThrows(
                 IllegalArgumentException.class,
@@ -75,5 +80,14 @@ class OrdersInputParserTest {
                 IllegalArgumentException.class,
                 () -> inputParser.parse(input)
         );
+    }
+
+    @Test
+    void splitTest() {
+        String ss = "gg,,";
+        for (String s : ss.split(",")) {
+            System.out.println("s = " + s);
+        }
+        System.out.println("ss.split(\",\").length = " + ss.split(",").length);
     }
 }
