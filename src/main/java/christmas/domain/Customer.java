@@ -28,6 +28,10 @@ public class Customer {
         return date.getDay();
     }
 
+    public int calculateTotalPrice() {
+        return orders.calculateTotalPrice();
+    }
+
     public boolean orderBeforeChristmas() {
         return !date.hasChristmasPassed();
     }
