@@ -1,13 +1,12 @@
-package christmas.controller;
+package christmas.domain.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.controller.EventPoliciesController;
 import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.Orders;
-import christmas.domain.discount.EventPolicies;
-import christmas.domain.discount.SpecialEventPolicy;
 import christmas.vo.Date;
 import christmas.vo.MenuInformation;
 import java.util.List;
@@ -15,7 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class EventPoliciesControllerTest {
+class EventPoliciesTest {
 
     private final static Menu menu = new Menu();
     private final static MenuInformation menuInformation = menu.getInformationOf("샴페인");
