@@ -65,12 +65,16 @@ public class OutputController {
             outputView.printMessage("샴페인 1개");
             return;
         }
-        outputView.printMessage("없음");
+        printNothing();
     }
 
     private void printEventList(BenefitResultDto benefitResultDto) {
         DecimalFormat formatter = new DecimalFormat(BENEFIT_KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.EVENT_RESULT.getMessage());
+        if (benefitResultDto.isEmpty()) {
+            printNothing();
+            return;
+        }
         for (EventPolicyType eventPolicyType : EventPolicyType.values()) {
             String typeName = eventPolicyType.getTypeName();
             int benefitAmount = benefitResultDto.getBenefitOf(eventPolicyType);
@@ -97,5 +101,9 @@ public class OutputController {
     public void printBadgeResult(Badge badge) {
         outputView.printMessage(SummaryMessage.BADGE_RESULT.getMessage());
         outputView.printMessage(badge.getName());
+    }
+
+    private void printNothing() {
+        outputView.printMessage("없음");
     }
 }

@@ -15,4 +15,8 @@ public record BenefitResultDto(Map<EventPolicyType, Integer> benefitResults) {
         }
         return benefitResults.get(eventPolicyType);
     }
+
+    public boolean isEmpty() {
+        return benefitResults().isEmpty();
+    }
 }
