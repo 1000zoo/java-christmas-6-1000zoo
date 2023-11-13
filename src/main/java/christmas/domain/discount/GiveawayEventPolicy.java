@@ -15,6 +15,6 @@ public class GiveawayEventPolicy implements SpecialEventPolicy {
 
     @Override
     public int getTotalBenefit() {
-        return GiveawayMenu.INSTANCE.getMenu().price();
+        return GiveawayMenu.INSTANCE.getPrice();
     }
 }

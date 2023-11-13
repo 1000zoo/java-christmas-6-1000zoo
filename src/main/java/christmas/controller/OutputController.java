@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.configuration.GiveawayMenu;
 import christmas.constant.InstructionMessage;
 import christmas.constant.KoreanWonFormat;
 import christmas.constant.ResultFormat;
@@ -56,8 +57,13 @@ public class OutputController {
 
     private void printGiveawayEventResult(BenefitResultDto benefitResultDto) {
         outputView.printMessage(SummaryMessage.GIVEAWAY_MENU.getMessage());
+        printGiveawayMenu(benefitResultDto);
+    }
+
+    private void printGiveawayMenu(BenefitResultDto benefitResultDto) {
         if (benefitResultDto.containsGiveaway()) {
-            outputView.printMessage("샴페인 1개");
+            String menuName = GiveawayMenu.INSTANCE.getMenuName();
+            outputView.printMessage(ResultFormat.ORDER_FORMAT.getFormatMessage(menuName, 1));
             return;
         }
         printNothing();
