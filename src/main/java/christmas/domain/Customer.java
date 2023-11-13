@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.dto.CustomerDTO;
+import christmas.dto.CustomerDto;
 import christmas.vo.Date;
 
 public class Customer {
@@ -49,7 +49,7 @@ public class Customer {
         return date.isSpecialDay();
     }
 
-    public CustomerDTO toDTO() {
-        return new CustomerDTO(date.getDay(), orders.toDto());
+    public CustomerDto toDTO() {
+        return new CustomerDto(date.getDay(), orders.toDto());
     }
 }

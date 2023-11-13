@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.dto.OrderDTOs;
+import christmas.dto.OrdersDto;
 import java.util.List;
 
 public class Orders {
@@ -55,7 +55,7 @@ public class Orders {
                 .mapToInt(Order::getQuantity).sum();
     }
 
-    public OrderDTOs toDto() {
-        return new OrderDTOs(orders.stream().map(Order::toDTO).toList(), calculateTotalPrice());
+    public OrdersDto toDto() {
+        return new OrdersDto(orders.stream().map(Order::toDTO).toList(), calculateTotalPrice());
     }
 }

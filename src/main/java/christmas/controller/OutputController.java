@@ -2,9 +2,9 @@ package christmas.controller;
 
 import christmas.constant.InstructionMessage;
 import christmas.constant.SummaryMessage;
-import christmas.dto.CustomerDTO;
-import christmas.dto.OrderDTO;
-import christmas.dto.OrderDTOs;
+import christmas.dto.CustomerDto;
+import christmas.dto.OrderDto;
+import christmas.dto.OrdersDto;
 import christmas.view.OutputView;
 import java.text.DecimalFormat;
 
@@ -24,19 +24,19 @@ public class OutputController {
         outputView.printMessage(InstructionMessage.WELCOME.getMessage());
     }
 
-    public void printCustomerResults(CustomerDTO customerDTO) {
+    public void printCustomerResults(CustomerDto customerDTO) {
         printDateResult(customerDTO.day());
-        printOrdersResult(customerDTO.orderDTOs());
+        printOrdersResult(customerDTO.ordersDto());
     }
 
     private void printDateResult(int day) {
         outputView.printMessage(DATE_RESULT_FORMAT, day);
     }
 
-    private void printOrdersResult(OrderDTOs orderDTOs) {
+    private void printOrdersResult(OrdersDto ordersDto) {
         outputView.printMessage(SummaryMessage.ORDER_MENU.getMessage());
-        orderDTOs.orderDTOs().forEach(this::printOrderResult);
-        printTotalAmount(orderDTOs.totalPrice());
+        ordersDto.orderDtoList().forEach(this::printOrderResult);
+        printTotalAmount(ordersDto.totalPrice());
     }
 
     private void printTotalAmount(int amount) {
@@ -45,7 +45,7 @@ public class OutputController {
         outputView.printMessage(formatter.format(amount));
     }
 
-    private void printOrderResult(OrderDTO orderDTO) {
+    private void printOrderResult(OrderDto orderDTO) {
         outputView.printMessage(ORDER_RESULT_FORMAT, orderDTO.menuName(), orderDTO.quantity());
     }
 

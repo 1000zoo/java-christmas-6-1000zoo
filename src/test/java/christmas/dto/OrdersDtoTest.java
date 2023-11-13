@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class OrderDTOsTest {
+class OrdersDtoTest {
 
     private final static Menu menu = new Menu();
     private static Orders orders;
@@ -25,8 +25,8 @@ class OrderDTOsTest {
     @Test
     @DisplayName("orders 불변성 테스트")
     void isOrdersUnmodifiable() {
-        OrderDTOs orderDTOs = orders.toDto();
-        List<OrderDTO> ordersList = orderDTOs.orderDTOs();
+        OrdersDto ordersDto = orders.toDto();
+        List<OrderDto> ordersList = ordersDto.orderDtoList();
 
         assertThrows(
                 UnsupportedOperationException.class,
