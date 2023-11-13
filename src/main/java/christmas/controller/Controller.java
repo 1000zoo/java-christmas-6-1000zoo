@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.configuration.GiveawayMenu;
 import christmas.configuration.InputConfiguration;
 import christmas.domain.Badge;
 import christmas.domain.Customer;
@@ -8,6 +9,7 @@ import christmas.domain.Orders;
 import christmas.domain.discount.EventPolicies;
 import christmas.dto.BenefitResultDto;
 import christmas.vo.Date;
+import christmas.vo.MenuInformation;
 
 public class Controller {
 
@@ -20,6 +22,8 @@ public class Controller {
     }
 
     public void start() {
+        setGiveawayMenu();
+
         Customer customer = createCustomer();
         outputController.printCustomerResults(customer.toDTO());
 
@@ -36,6 +40,10 @@ public class Controller {
         outputController.printBadgeResult(badge);
     }
 
+    private void setGiveawayMenu() {
+        MenuInformation menuInformation = menu.getInformationOf("샴페인");
+        GiveawayMenu.INSTANCE.init(menuInformation);
+    }
 
     private Customer createCustomer() {
         outputController.printWelcomeMessage();
@@ -53,8 +61,8 @@ public class Controller {
     }
 
     private EventPolicies createEventPolicies(Customer customer) {
-        EventPoliciesController eventPoliciesController = new EventPoliciesController(customer,
-                menu.getInformationOf("샴페인"));
+        EventPoliciesController eventPoliciesController =
+                new EventPoliciesController(customer, GiveawayMenu.INSTANCE.getMenu());
         return eventPoliciesController.createEventPolicies();
     }
 
