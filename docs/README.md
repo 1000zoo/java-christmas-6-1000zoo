@@ -91,5 +91,5 @@
 - [X] OrderDTO
     - [X] 메뉴 이름
     - [X] 주문 수량
-- [ ] BenefitResultDTO
-    - [ ] 받은 모든 혜택을 Map 형식으로
+- [X] BenefitResultDTO
+    - [X] 받은 모든 혜택을 Map 형식으로
