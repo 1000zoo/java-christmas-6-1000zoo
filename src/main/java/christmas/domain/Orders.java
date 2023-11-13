@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.ErrorMessage;
 import christmas.dto.OrdersDto;
 import java.util.List;
 
@@ -21,13 +22,13 @@ public class Orders {
 
     private void throwIfOrderedTooMuch() {
         if (calculateTotalQuantities() > MAX_ORDER_QUANTITY) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     private void throwIfOrderedOnlyDrink() {
         if (hasOnlyDrink()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 

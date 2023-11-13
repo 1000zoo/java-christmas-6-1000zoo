@@ -1,5 +1,6 @@
 package christmas.validator;
 
+import christmas.constant.ErrorMessage;
 import christmas.domain.Menu;
 
 public class MenuValidator implements Validator<String> {
@@ -19,7 +20,7 @@ public class MenuValidator implements Validator<String> {
 
     private void throwIfDoesNotExistMenu(String target) {
         if (!menu.containsKey(target)) {
-            throw new IllegalArgumentException(INVALID_MENU_ORDERED_ERROR_MESSAGE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 }

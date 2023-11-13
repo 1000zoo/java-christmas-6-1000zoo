@@ -1,5 +1,6 @@
 package christmas.vo;
 
+import christmas.constant.ErrorMessage;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -45,7 +46,7 @@ public class Date {
 
     private void validate(int day) {
         if (day < MIN_DAY || day > MAX_DAY) {
-            throw new IllegalArgumentException(INVALID_RANGE_INPUT_ERROR_MESSAGE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
 }

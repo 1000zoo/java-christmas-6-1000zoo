@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.ErrorMessage;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.Orders;
@@ -11,6 +12,7 @@ public class OrdersInputParser extends InputParser<Orders> {
 
     private final static String ORDER_DELIMITER = ",";
     private final static String INVALID_DELIMITER = ",,";
+    private final static String ERROR_MESSAGE = "유효하지 않은 주문입니다. 다시 입력해 주세요.";
 
     private final OrderParser orderParser;
     private final List<Order> orders;
@@ -23,10 +25,10 @@ public class OrdersInputParser extends InputParser<Orders> {
     @Override
     protected void validate(String input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         if (input.contains(INVALID_DELIMITER)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
@@ -41,7 +43,7 @@ public class OrdersInputParser extends InputParser<Orders> {
 
     private void addOrder(Order order) {
         if (containsName(order.getMenuName())) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         orders.add(order);
     }

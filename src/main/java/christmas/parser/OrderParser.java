@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.ErrorMessage;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.vo.MenuInformation;
@@ -29,7 +30,7 @@ public class OrderParser implements Parser<String, Order> {
     private List<String> split(String input) {
         List<String> splitInput = List.of(input.split(DELIMITER));
         if (splitInput.size() != SPLIT_LIST_LENGTH) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         return splitInput;
     }

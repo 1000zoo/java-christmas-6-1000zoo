@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.ErrorMessage;
 import christmas.parser.RepositoryParser;
 import christmas.repository.MenuRepository;
 import christmas.vo.MenuInformation;
@@ -24,7 +25,7 @@ public class Menu {
 
     public MenuInformation getInformationOf(String name) {
         if (notContainsKey(name)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         return repository.get(name);
     }

@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.ErrorMessage;
 import christmas.dto.OrderDto;
 import christmas.vo.MenuInformation;
 
@@ -16,7 +17,7 @@ public class Order {
 
     private void validate(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
