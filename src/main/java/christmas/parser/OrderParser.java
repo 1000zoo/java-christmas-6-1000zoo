@@ -23,7 +23,7 @@ public class OrderParser implements Parser<String, Order> {
     public Order parse(String input) {
         List<String> stringOrder = split(input);
         MenuInformation menuInformation = menuParser.parse(stringOrder.get(MENU_INDEX));
-        int quantity = Integer.parseInt(stringOrder.get(QUANTITY_INDEX));
+        int quantity = parseIntOrElseThrow(stringOrder.get(QUANTITY_INDEX));
         return new Order(menuInformation, quantity);
     }
 
@@ -33,5 +33,13 @@ public class OrderParser implements Parser<String, Order> {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         return splitInput;
+    }
+
+    private int parseIntOrElseThrow(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
+        }
     }
 }
