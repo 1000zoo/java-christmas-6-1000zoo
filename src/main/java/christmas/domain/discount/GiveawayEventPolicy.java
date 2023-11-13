@@ -1,13 +1,11 @@
 package christmas.domain.discount;
 
+import christmas.configuration.GiveawayMenu;
 import christmas.dto.PoliciesRequestDto;
 
 public class GiveawayEventPolicy implements SpecialEventPolicy {
 
-    private final PoliciesRequestDto policiesRequestDto;
-
-    public GiveawayEventPolicy(PoliciesRequestDto policiesRequestDto) {
-        this.policiesRequestDto = policiesRequestDto;
+    public GiveawayEventPolicy(PoliciesRequestDto ignored) {
     }
 
     @Override
@@ -17,6 +15,6 @@ public class GiveawayEventPolicy implements SpecialEventPolicy {
 
     @Override
     public int getTotalBenefit() {
-        return policiesRequestDto.giveawayMenuPrice();
+        return GiveawayMenu.INSTANCE.getMenu().price();
     }
 }

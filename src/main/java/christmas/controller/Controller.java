@@ -61,8 +61,7 @@ public class Controller {
     }
 
     private EventPolicies createEventPolicies(Customer customer) {
-        EventPoliciesController eventPoliciesController =
-                new EventPoliciesController(customer, GiveawayMenu.INSTANCE.getMenu());
+        EventPoliciesController eventPoliciesController = new EventPoliciesController(customer);
         return eventPoliciesController.createEventPolicies();
     }
 

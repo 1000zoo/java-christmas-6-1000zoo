@@ -25,7 +25,7 @@ class DDayDiscountPolicyTest {
     @DisplayName("디데이 할인 정책 테스트")
     @MethodSource("provideDateData")
     void discountAmount(int day, int answer) {
-        PoliciesRequestDto policiesRequestDto = new PoliciesRequestDto(0, 0, day, 0);
+        PoliciesRequestDto policiesRequestDto = new PoliciesRequestDto(0, 0, day);
         SpecialEventPolicy policy = new DDayDiscountPolicy(policiesRequestDto);
         int discount = policy.getDiscountAmount();
         assertThat(discount).isEqualTo(answer);

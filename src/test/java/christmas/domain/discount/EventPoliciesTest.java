@@ -43,7 +43,7 @@ class EventPoliciesTest {
     void discountAmount(int day, String menuName, int quantity, int answer) {
         setUp(day, menuName, quantity);
 
-        EventPoliciesController controller = new EventPoliciesController(customer, menuInformation);
+        EventPoliciesController controller = new EventPoliciesController(customer);
         EventPolicies policies = controller.createEventPolicies();
 
         int discountAmount = policies.getDiscountAmount();
@@ -64,7 +64,7 @@ class EventPoliciesTest {
     void benefitAmount(int day, String menuName, int quantity, int answer) {
         setUp(day, menuName, quantity);
 
-        EventPoliciesController controller = new EventPoliciesController(customer, menuInformation);
+        EventPoliciesController controller = new EventPoliciesController(customer);
         EventPolicies policies = controller.createEventPolicies();
 
         int discountAmount = policies.getTotalBenefit();

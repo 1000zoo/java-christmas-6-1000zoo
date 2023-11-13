@@ -22,7 +22,7 @@ class WeekendDiscountPolicyTest {
     @DisplayName("주말 할인 정책 테스트")
     @MethodSource("provideOrdersData")
     void discountAmount(int countMain, int answer) {
-        PoliciesRequestDto policiesRequestDto = new PoliciesRequestDto(0, countMain, 0, 0);
+        PoliciesRequestDto policiesRequestDto = new PoliciesRequestDto(0, countMain, 0);
         SpecialEventPolicy policy = new WeekendDiscountPolicy(policiesRequestDto);
 
         int discount = policy.getDiscountAmount();

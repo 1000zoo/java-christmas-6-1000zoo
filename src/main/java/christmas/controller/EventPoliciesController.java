@@ -5,7 +5,6 @@ import christmas.domain.discount.EventPolicies;
 import christmas.domain.discount.EventPolicyType;
 import christmas.domain.discount.SpecialEventPolicy;
 import christmas.dto.PoliciesRequestDto;
-import christmas.vo.MenuInformation;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -15,13 +14,12 @@ public class EventPoliciesController {
     private final PoliciesRequestDto policiesRequestDto;
     private final Map<EventPolicyType, SpecialEventPolicy> policyList;
 
-    public EventPoliciesController(Customer customer, MenuInformation giveawayMenu) {
+    public EventPoliciesController(Customer customer) {
         this.customer = customer;
         policiesRequestDto = new PoliciesRequestDto(
                 customer.countDessert(),
                 customer.countMain(),
-                customer.getDay(),
-                giveawayMenu.price()
+                customer.getDay()
         );
         policyList = new EnumMap<>(EventPolicyType.class);
     }
