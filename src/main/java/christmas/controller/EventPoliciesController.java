@@ -1,8 +1,13 @@
 package christmas.controller;
 
 import christmas.domain.Customer;
+import christmas.domain.discount.DDayDiscountPolicy;
 import christmas.domain.discount.EventPolicies;
+import christmas.domain.discount.GiveawayEventPolicy;
+import christmas.domain.discount.SpecialDayDiscountPolicy;
 import christmas.domain.discount.SpecialEventPolicy;
+import christmas.domain.discount.WeekdayDiscountPolicy;
+import christmas.domain.discount.WeekendDiscountPolicy;
 import christmas.dto.PoliciesRequestDto;
 import christmas.vo.MenuInformation;
 import java.util.ArrayList;
@@ -33,11 +38,11 @@ public class EventPoliciesController {
 
     public EventPolicies createEventPolicies() {
         if (customer.calculateTotalConsumption() >= MIN_AMOUNT_FOR_DISCOUNT) {
-            addDDayDiscountPolicy();
-            addWeekdayDiscountPolicy();
-            addWeekendDiscountPolicy();
-            addDiscountAmount();
-            addGiveawayEventPolicy();
+            addPolicy(this::canAddDDayDiscountPolicy, DDayDiscountPolicy::new);
+            addPolicy(this::canAddWeekdayDiscountPolicy, WeekdayDiscountPolicy::new);
+            addPolicy(this::canAddWeekendDiscountPolicy, WeekendDiscountPolicy::new);
+            addPolicy(this::canAddSpecialDayDiscountPolicy, SpecialDayDiscountPolicy::new);
+            addPolicy(this::canAddGiveawayEventPolicy, GiveawayEventPolicy::new);
         }
         return EventPolicies.from(policyList);
     }
@@ -52,49 +57,20 @@ public class EventPoliciesController {
         return customer.orderBeforeChristmas();
     }
 
-    private void addDDayDiscountPolicy() {
-        if (customer.orderBeforeChristmas()) {
-//            policyList.add(new DDayDiscountPolicy(customer.getDay()));
-        }
-    }
-
     private boolean canAddWeekdayDiscountPolicy() {
         return customer.orderAtWeekday() && customer.countDessert() > DOESNT_EXIST;
-    }
-
-    private void addWeekdayDiscountPolicy() {
-        if (customer.orderAtWeekday() && customer.countDessert() > DOESNT_EXIST) {
-//            policyList.add(new WeekdayDiscountPolicy(customer.countDessert()));
-        }
     }
 
     private boolean canAddWeekendDiscountPolicy() {
         return customer.orderAtWeekend() && customer.countMain() > DOESNT_EXIST;
     }
 
-    private void addWeekendDiscountPolicy() {
-        if (customer.orderAtWeekend() && customer.countMain() > DOESNT_EXIST) {
-//            policyList.add(new WeekendDiscountPolicy(customer.countMain()));
-        }
-    }
-
     private boolean canAddSpecialDayDiscountPolicy() {
         return customer.orderAtSpecialDay();
-    }
-
-    private void addDiscountAmount() {
-        if (customer.orderAtSpecialDay()) {
-//            policyList.add(new SpecialDayDiscountPolicy());
-        }
     }
 
     private boolean canAddGiveawayEventPolicy() {
         return customer.calculateTotalPrice() >= MIN_AMOUNT_FOR_GIVEAWAY;
     }
 
-    private void addGiveawayEventPolicy() {
-        if (customer.calculateTotalPrice() >= MIN_AMOUNT_FOR_GIVEAWAY) {
-//            policyList.add(new GiveawayEventPolicy(giveawayMenu));
-        }
-    }
 }
