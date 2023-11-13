@@ -1,8 +1,8 @@
 package christmas.controller;
 
-import christmas.constant.FormatMessage;
 import christmas.constant.InstructionMessage;
 import christmas.constant.KoreanWonFormat;
+import christmas.constant.ResultFormat;
 import christmas.constant.SummaryMessage;
 import christmas.domain.Badge;
 import christmas.domain.discount.EventPolicyType;
@@ -30,7 +30,7 @@ public class OutputController {
     }
 
     private void printDateResult(int day) {
-        outputView.printMessage(FormatMessage.DATE_RESULT.getFormatMessage(day));
+        outputView.printMessage(ResultFormat.DATE_FORMAT.getFormatMessage(day));
     }
 
     private void printOrdersResult(OrdersDto ordersDto) {
@@ -40,9 +40,8 @@ public class OutputController {
     }
 
     private void printOrderResult(OrderDto orderDTO) {
-        outputView.printMessage(
-                FormatMessage.ORDER_RESULT.getFormatMessage(orderDTO.menuName(), orderDTO.quantity())
-        );
+        String orderResult = fit(ResultFormat.ORDER_FORMAT, orderDTO.menuName(), orderDTO.quantity());
+        outputView.printMessage(orderResult);
     }
 
     private void printTotalAmount(int amount) {
@@ -76,23 +75,24 @@ public class OutputController {
         }
     }
 
-    private void printEvent(EventPolicyType eventPolicyType, int benefitAmount) {
-        if (benefitAmount == 0) {
+    private void printEvent(EventPolicyType type, int amount) {
+        if (amount == 0) {
             return;
         }
 
-        String priceWonFormat = KoreanWonFormat.DISCOUNT.getAmountMessage(benefitAmount);
-        outputView.printMessage(
-                FormatMessage.EVENT_RESULT.getFormatMessage(eventPolicyType.getTypeName(), priceWonFormat));
+        String wonFormat = fit(KoreanWonFormat.DISCOUNT, amount);
+        String eventFormat = fit(ResultFormat.EVENT_FORMAT, type.getTypeName(), wonFormat);
+        outputView.printMessage(eventFormat);
     }
 
-    public void printTotalBenefitAmount(int benefitAmount) {
+    public void printTotalBenefitAmount(int amount) {
         outputView.printMessage(SummaryMessage.BENEFITS_RESULT.getMessage());
-        outputView.printMessage(KoreanWonFormat.DISCOUNT.getAmountMessage(benefitAmount));
+        outputView.printMessage(fit(KoreanWonFormat.DISCOUNT, amount));
     }
 
     public void printAfterDiscount(int amount) {
         outputView.printMessage(SummaryMessage.AFTER_DISCOUNT.getMessage());
+        outputView.printMessage(fit(KoreanWonFormat.PRICE, amount));
         outputView.printMessage(KoreanWonFormat.PRICE.getAmountMessage(amount));
     }
 
@@ -103,5 +103,13 @@ public class OutputController {
 
     private void printNothing() {
         outputView.printMessage(InstructionMessage.DOES_NOT_EXIST.getMessage());
+    }
+
+    private String fit(KoreanWonFormat koreanWonFormat, int amount) {
+        return koreanWonFormat.getAmountMessage(amount);
+    }
+
+    private String fit(ResultFormat resultFormat, Object... objects) {
+        return resultFormat.getFormatMessage(objects);
     }
 }
