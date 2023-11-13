@@ -6,7 +6,6 @@ import christmas.domain.discount.EventPolicies;
 import christmas.domain.discount.GiveawayEventPolicy;
 import christmas.domain.discount.SpecialDayDiscountPolicy;
 import christmas.domain.discount.SpecialEventPolicy;
-import christmas.domain.discount.WeekdayDiscountPolicy;
 import christmas.domain.discount.WeekendDiscountPolicy;
 import christmas.vo.MenuInformation;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class EventPoliciesController {
 
     private void addWeekdayDiscountPolicy() {
         if (customer.orderAtWeekday() && customer.countDessert() > DOESNT_EXIST) {
-            policyList.add(new WeekdayDiscountPolicy(customer.countDessert()));
+//            policyList.add(new WeekdayDiscountPolicy(customer.countDessert()));
         }
     }
 
