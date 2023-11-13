@@ -1,6 +1,8 @@
 package christmas.domain.discount;
 
+import christmas.dto.BenefitResultDto;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class EventPolicies {
@@ -25,5 +27,11 @@ public class EventPolicies {
         return policies.values().stream()
                 .mapToInt(SpecialEventPolicy::getTotalBenefit)
                 .sum();
+    }
+
+    public BenefitResultDto createBenefitResultDto() {
+        Map<EventPolicyType, Integer> benefitResults = new EnumMap<>(EventPolicyType.class);
+        policies.keySet().forEach(event -> benefitResults.put(event, policies.get(event).getTotalBenefit()));
+        return new BenefitResultDto(benefitResults);
     }
 }

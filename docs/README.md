@@ -91,6 +91,5 @@
 - [X] OrderDTO
     - [X] 메뉴 이름
     - [X] 주문 수량
-- [ ] EventPolicyDTO
-    - [ ] 받은 모든 혜택
-    - [ ] 증정 메뉴 여부
+- [ ] BenefitResultDTO
+    - [ ] 받은 모든 혜택을 Map 형식으로
