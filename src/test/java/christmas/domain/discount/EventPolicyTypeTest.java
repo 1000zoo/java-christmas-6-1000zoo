@@ -52,7 +52,7 @@ class EventPolicyTypeTest {
         Orders orders = ordersInputParser.parse(stringOrder);
         Customer customer = new Customer(date, orders);
 
-        boolean result = EventPolicyType.DDAY.canAddEvent(customer);
+        boolean result = EventPolicyType.WEEKDAY.canAddEvent(customer);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -71,7 +71,7 @@ class EventPolicyTypeTest {
         Orders orders = ordersInputParser.parse(stringOrder);
         Customer customer = new Customer(date, orders);
 
-        boolean result = EventPolicyType.DDAY.canAddEvent(customer);
+        boolean result = EventPolicyType.WEEKEND.canAddEvent(customer);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -88,7 +88,7 @@ class EventPolicyTypeTest {
         Orders orders = ordersInputParser.parse(stringOrder);
         Customer customer = new Customer(date, orders);
 
-        boolean result = EventPolicyType.DDAY.canAddEvent(customer);
+        boolean result = EventPolicyType.SPECIAL_DAY.canAddEvent(customer);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -104,7 +104,7 @@ class EventPolicyTypeTest {
         Orders orders = ordersInputParser.parse(stringOrder);
         Customer customer = new Customer(date, orders);
 
-        boolean result = EventPolicyType.DDAY.canAddEvent(customer);
+        boolean result = EventPolicyType.GIVEAWAY.canAddEvent(customer);
 
         assertThat(result).isEqualTo(answer);
     }
