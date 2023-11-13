@@ -38,7 +38,7 @@ public class EventPoliciesController {
     }
 
     public EventPolicies createEventPolicies() {
-        if (customer.calculateTotalConsumption() >= MIN_AMOUNT_FOR_DISCOUNT) {
+        if (customer.calculateTotalPrice() >= MIN_AMOUNT_FOR_DISCOUNT) {
             addPolicy(EventPolicyType.DDAY, this::canAddDDayDiscountPolicy, DDayDiscountPolicy::new);
             addPolicy(EventPolicyType.WEEKDAY, this::canAddWeekdayDiscountPolicy, WeekdayDiscountPolicy::new);
             addPolicy(EventPolicyType.WEEKEND, this::canAddWeekendDiscountPolicy, WeekendDiscountPolicy::new);

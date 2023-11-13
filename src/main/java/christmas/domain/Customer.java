@@ -13,10 +13,6 @@ public class Customer {
         this.orders = orders;
     }
 
-    public int calculateTotalConsumption() {
-        return orders.calculateTotalPrice();
-    }
-
     public int countDessert() {
         return orders.countDessert();
     }
