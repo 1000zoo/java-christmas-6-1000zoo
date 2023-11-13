@@ -69,11 +69,16 @@ public class OutputController {
     }
 
     private void printEventList(BenefitResultDto benefitResultDto) {
+        DecimalFormat formatter = new DecimalFormat(BENEFIT_KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.EVENT_RESULT.getMessage());
         for (EventPolicyType eventPolicyType : EventPolicyType.values()) {
             String typeName = eventPolicyType.getTypeName();
             int benefitAmount = benefitResultDto.getBenefitOf(eventPolicyType);
-            outputView.printMessage(EVENT_RESULTS_FORMAT, typeName, benefitAmount);
+            if (benefitAmount == 0) {
+                continue;
+            }
+            String benefitMessage = formatter.format(benefitAmount);
+            outputView.printMessage(EVENT_RESULTS_FORMAT, typeName, benefitMessage);
         }
     }
 

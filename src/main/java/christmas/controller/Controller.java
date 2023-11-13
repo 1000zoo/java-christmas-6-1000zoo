@@ -1,9 +1,12 @@
 package christmas.controller;
 
 import christmas.configuration.InputConfiguration;
+import christmas.domain.Badge;
 import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
+import christmas.domain.discount.EventPolicies;
+import christmas.dto.BenefitResultDto;
 import christmas.vo.Date;
 
 public class Controller {
@@ -19,7 +22,20 @@ public class Controller {
     public void start() {
         Customer customer = createCustomer();
         outputController.printCustomerResults(customer.toDTO());
+
+        EventPolicies eventPolicies = createEventPolicies(customer);
+        BenefitResultDto benefitResultDto = eventPolicies.createBenefitResultDto();
+
+        outputController.printPolicyResult(benefitResultDto);
+        outputController.printTotalBenefitAmount(eventPolicies.getTotalBenefit());
+
+        int afterDiscountAmount = calculateAfterDiscountAmount(customer, eventPolicies);
+        outputController.printAfterDiscount(afterDiscountAmount);
+
+        Badge badge = Badge.findByAmount(customer.calculateTotalPrice());
+        outputController.printBadgeResult(badge);
     }
+
 
     private Customer createCustomer() {
         outputController.printWelcomeMessage();
@@ -34,5 +50,15 @@ public class Controller {
 
     private Orders takeOrder() {
         return InputConfiguration.createOrdersInputController(menu).readLine();
+    }
+
+    private EventPolicies createEventPolicies(Customer customer) {
+        EventPoliciesController eventPoliciesController = new EventPoliciesController(customer,
+                menu.getInformationOf("샴페인"));
+        return eventPoliciesController.createEventPolicies();
+    }
+
+    private int calculateAfterDiscountAmount(Customer customer, EventPolicies eventPolicies) {
+        return customer.calculateTotalPrice() - eventPolicies.getDiscountAmount();
     }
 }
