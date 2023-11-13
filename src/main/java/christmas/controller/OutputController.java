@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.constant.FormatMessage;
 import christmas.constant.InstructionMessage;
+import christmas.constant.KoreanWonFormat;
 import christmas.constant.SummaryMessage;
 import christmas.domain.Badge;
 import christmas.domain.discount.EventPolicyType;
@@ -10,13 +11,8 @@ import christmas.dto.CustomerDto;
 import christmas.dto.OrderDto;
 import christmas.dto.OrdersDto;
 import christmas.view.OutputView;
-import java.text.DecimalFormat;
 
 public class OutputController {
-
-    private final static String KOREAN_WON_FORMAT = "#,###원";
-    private final static String EVENT_RESULTS_FORMAT = "%s: %s";
-    private final static String BENEFIT_KOREAN_WON_FORMAT = "-#,###원";
 
     private final OutputView outputView;
 
@@ -50,9 +46,8 @@ public class OutputController {
     }
 
     private void printTotalAmount(int amount) {
-        DecimalFormat formatter = new DecimalFormat(KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.TOTAL_AMOUNT.getMessage());
-        outputView.printMessage(formatter.format(amount));
+        outputView.printMessage(KoreanWonFormat.PRICE.getAmountMessage(amount));
     }
 
     public void printPolicyResult(BenefitResultDto benefitResultDto) {
@@ -70,33 +65,35 @@ public class OutputController {
     }
 
     private void printEventList(BenefitResultDto benefitResultDto) {
-        DecimalFormat formatter = new DecimalFormat(BENEFIT_KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.EVENT_RESULT.getMessage());
         if (benefitResultDto.isEmpty()) {
             printNothing();
             return;
         }
         for (EventPolicyType eventPolicyType : EventPolicyType.values()) {
-            String typeName = eventPolicyType.getTypeName();
             int benefitAmount = benefitResultDto.getBenefitOf(eventPolicyType);
-            if (benefitAmount == 0) {
-                continue;
-            }
-            String benefitMessage = formatter.format(benefitAmount);
-            outputView.printMessage(EVENT_RESULTS_FORMAT, typeName, benefitMessage);
+            printEvent(eventPolicyType, benefitAmount);
         }
     }
 
+    private void printEvent(EventPolicyType eventPolicyType, int benefitAmount) {
+        if (benefitAmount == 0) {
+            return;
+        }
+
+        String priceWonFormat = KoreanWonFormat.DISCOUNT.getAmountMessage(benefitAmount);
+        outputView.printMessage(
+                FormatMessage.EVENT_RESULT.getFormatMessage(eventPolicyType.getTypeName(), priceWonFormat));
+    }
+
     public void printTotalBenefitAmount(int benefitAmount) {
-        DecimalFormat formatter = new DecimalFormat(BENEFIT_KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.BENEFITS_RESULT.getMessage());
-        outputView.printMessage(formatter.format(benefitAmount));
+        outputView.printMessage(KoreanWonFormat.DISCOUNT.getAmountMessage(benefitAmount));
     }
 
     public void printAfterDiscount(int amount) {
-        DecimalFormat formatter = new DecimalFormat(KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.AFTER_DISCOUNT.getMessage());
-        outputView.printMessage(formatter.format(amount));
+        outputView.printMessage(KoreanWonFormat.PRICE.getAmountMessage(amount));
     }
 
     public void printBadgeResult(Badge badge) {
@@ -105,6 +102,6 @@ public class OutputController {
     }
 
     private void printNothing() {
-        outputView.printMessage("없음");
+        outputView.printMessage(InstructionMessage.DOES_NOT_EXIST.getMessage());
     }
 }
