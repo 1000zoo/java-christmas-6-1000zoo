@@ -12,7 +12,6 @@ public class WeekdayDiscountPolicy implements SpecialEventPolicy {
         this.policiesRequestDto = policiesRequestDto;
     }
 
-
     @Override
     public int getDiscountAmount() {
         return DISCOUNT_AMOUNT * policiesRequestDto.countDessert();

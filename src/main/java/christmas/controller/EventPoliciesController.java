@@ -1,12 +1,8 @@
 package christmas.controller;
 
 import christmas.domain.Customer;
-import christmas.domain.discount.DDayDiscountPolicy;
 import christmas.domain.discount.EventPolicies;
-import christmas.domain.discount.GiveawayEventPolicy;
-import christmas.domain.discount.SpecialDayDiscountPolicy;
 import christmas.domain.discount.SpecialEventPolicy;
-import christmas.domain.discount.WeekendDiscountPolicy;
 import christmas.vo.MenuInformation;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +36,7 @@ public class EventPoliciesController {
 
     private void addDDayDiscountPolicy() {
         if (customer.orderBeforeChristmas()) {
-            policyList.add(new DDayDiscountPolicy(customer.getDay()));
+//            policyList.add(new DDayDiscountPolicy(customer.getDay()));
         }
     }
 
@@ -52,19 +48,19 @@ public class EventPoliciesController {
 
     private void addWeekendDiscountPolicy() {
         if (customer.orderAtWeekend() && customer.countMain() > DOESNT_EXIST) {
-            policyList.add(new WeekendDiscountPolicy(customer.countMain()));
+//            policyList.add(new WeekendDiscountPolicy(customer.countMain()));
         }
     }
 
     private void addDiscountAmount() {
         if (customer.orderAtSpecialDay()) {
-            policyList.add(new SpecialDayDiscountPolicy());
+//            policyList.add(new SpecialDayDiscountPolicy());
         }
     }
 
     private void addGiveawayEventPolicy() {
         if (customer.calculateTotalPrice() >= MIN_AMOUNT_FOR_GIVEAWAY) {
-            policyList.add(new GiveawayEventPolicy(giveawayMenu));
+//            policyList.add(new GiveawayEventPolicy(giveawayMenu));
         }
     }
 }

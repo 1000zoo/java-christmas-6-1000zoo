@@ -3,6 +3,7 @@ package christmas.domain.discount;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import christmas.dto.PoliciesRequestDto;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,8 +21,9 @@ class WeekendDiscountPolicyTest {
     @ParameterizedTest
     @DisplayName("주말 할인 정책 테스트")
     @MethodSource("provideOrdersData")
-    void discountAmount(int count, int answer) {
-        SpecialEventPolicy policy = new WeekendDiscountPolicy(count);
+    void discountAmount(int countMain, int answer) {
+        PoliciesRequestDto policiesRequestDto = new PoliciesRequestDto(0, countMain, 0, 0);
+        SpecialEventPolicy policy = new WeekendDiscountPolicy(policiesRequestDto);
 
         int discount = policy.getDiscountAmount();
 
