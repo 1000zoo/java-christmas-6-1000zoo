@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.constant.FormatMessage;
 import christmas.constant.InstructionMessage;
 import christmas.constant.SummaryMessage;
 import christmas.domain.Badge;
@@ -13,8 +14,6 @@ import java.text.DecimalFormat;
 
 public class OutputController {
 
-    private final static String DATE_RESULT_FORMAT = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
-    private final static String ORDER_RESULT_FORMAT = "%s %d개";
     private final static String KOREAN_WON_FORMAT = "#,###원";
     private final static String EVENT_RESULTS_FORMAT = "%s: %s";
     private final static String BENEFIT_KOREAN_WON_FORMAT = "-#,###원";
@@ -35,7 +34,7 @@ public class OutputController {
     }
 
     private void printDateResult(int day) {
-        outputView.printMessage(DATE_RESULT_FORMAT, day);
+        outputView.printMessage(FormatMessage.DATE_RESULT.getFormatMessage(day));
     }
 
     private void printOrdersResult(OrdersDto ordersDto) {
@@ -44,14 +43,16 @@ public class OutputController {
         printTotalAmount(ordersDto.totalPrice());
     }
 
+    private void printOrderResult(OrderDto orderDTO) {
+        outputView.printMessage(
+                FormatMessage.ORDER_RESULT.getFormatMessage(orderDTO.menuName(), orderDTO.quantity())
+        );
+    }
+
     private void printTotalAmount(int amount) {
         DecimalFormat formatter = new DecimalFormat(KOREAN_WON_FORMAT);
         outputView.printMessage(SummaryMessage.TOTAL_AMOUNT.getMessage());
         outputView.printMessage(formatter.format(amount));
-    }
-
-    private void printOrderResult(OrderDto orderDTO) {
-        outputView.printMessage(ORDER_RESULT_FORMAT, orderDTO.menuName(), orderDTO.quantity());
     }
 
     public void printPolicyResult(BenefitResultDto benefitResultDto) {
