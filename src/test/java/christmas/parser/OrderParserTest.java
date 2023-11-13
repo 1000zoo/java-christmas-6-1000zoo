@@ -49,6 +49,15 @@ class OrderParserTest {
         );
     }
 
+    @ParameterizedTest
+    @DisplayName("주문수량이 숫자가 아닐 경우 에러 발생")
+    @ValueSource(strings = {"티본스테이크-a"})
+    void nonIntegerQuantity(String input) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> parser.parse(input)
+        );
+    }
 
     @ParameterizedTest
     @DisplayName("정상적인 주문이 들어오면 통과")
