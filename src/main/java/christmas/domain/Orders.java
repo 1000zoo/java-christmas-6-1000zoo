@@ -45,13 +45,13 @@ public class Orders {
 
     public int countDessert() {
         return orders.stream()
-                .filter(order -> order.getMenuType() == MenuType.DESSERT)
+                .filter(Order::isDessert)
                 .mapToInt(Order::getQuantity).sum();
     }
 
     public int countMain() {
         return orders.stream()
-                .filter(order -> order.getMenuType() == MenuType.MAIN)
+                .filter(Order::isMain)
                 .mapToInt(Order::getQuantity).sum();
     }
 

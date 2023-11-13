@@ -33,12 +33,16 @@ public class Order {
         return quantity * menuInformation.price();
     }
 
-    public MenuType getMenuType() {
-        return menuInformation.menuType();
-    }
-
     public boolean isFood() {
         return menuInformation.isFood();
+    }
+
+    public boolean isDessert() {
+        return menuInformation.isDessert();
+    }
+
+    public boolean isMain() {
+        return menuInformation.isMain();
     }
 
     public OrderDto toDTO() {

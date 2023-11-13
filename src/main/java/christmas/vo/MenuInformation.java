@@ -22,6 +22,14 @@ public record MenuInformation(String name, int price, MenuType menuType) {
         return menuType.isFood();
     }
 
+    public boolean isDessert() {
+        return menuType.isDessert();
+    }
+
+    public boolean isMain() {
+        return menuType.isMain();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

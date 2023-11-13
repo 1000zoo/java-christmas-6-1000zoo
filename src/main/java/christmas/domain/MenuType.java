@@ -6,4 +6,12 @@ public enum MenuType {
     public boolean isFood() {
         return this != DRINK;
     }
+
+    public boolean isDessert() {
+        return this == DESSERT;
+    }
+
+    public boolean isMain() {
+        return this == MAIN;
+    }
 }
