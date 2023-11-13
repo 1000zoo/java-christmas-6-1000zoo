@@ -3,20 +3,14 @@ package christmas.controller;
 import christmas.constant.AmountEnum;
 import christmas.constant.QuantityEnum;
 import christmas.domain.Customer;
-import christmas.domain.discount.DDayDiscountPolicy;
 import christmas.domain.discount.EventPolicies;
 import christmas.domain.discount.EventPolicyType;
-import christmas.domain.discount.GiveawayEventPolicy;
-import christmas.domain.discount.SpecialDayDiscountPolicy;
 import christmas.domain.discount.SpecialEventPolicy;
-import christmas.domain.discount.WeekdayDiscountPolicy;
-import christmas.domain.discount.WeekendDiscountPolicy;
 import christmas.dto.PoliciesRequestDto;
 import christmas.vo.MenuInformation;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
-import java.util.function.Function;
 
 public class EventPoliciesController {
 
@@ -37,11 +31,11 @@ public class EventPoliciesController {
 
     public EventPolicies createEventPolicies() {
         if (isEventApplied()) {
-            addPolicy(EventPolicyType.DDAY, this::canAddDDayDiscountPolicy, DDayDiscountPolicy::new);
-            addPolicy(EventPolicyType.WEEKDAY, this::canAddWeekdayDiscountPolicy, WeekdayDiscountPolicy::new);
-            addPolicy(EventPolicyType.WEEKEND, this::canAddWeekendDiscountPolicy, WeekendDiscountPolicy::new);
-            addPolicy(EventPolicyType.SPECIAL_DAY, this::canAddSpecialDayDiscountPolicy, SpecialDayDiscountPolicy::new);
-            addPolicy(EventPolicyType.GIVEAWAY, this::canAddGiveawayEventPolicy, GiveawayEventPolicy::new);
+            addPolicy(EventPolicyType.DDAY, this::canAddDDayDiscountPolicy);
+            addPolicy(EventPolicyType.WEEKDAY, this::canAddWeekdayDiscountPolicy);
+            addPolicy(EventPolicyType.WEEKEND, this::canAddWeekendDiscountPolicy);
+            addPolicy(EventPolicyType.SPECIAL_DAY, this::canAddSpecialDayDiscountPolicy);
+            addPolicy(EventPolicyType.GIVEAWAY, this::canAddGiveawayEventPolicy);
         }
         return EventPolicies.from(policyList);
     }
@@ -50,12 +44,9 @@ public class EventPoliciesController {
         return customer.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_EVENT.getAmount();
     }
 
-    private void addPolicy(EventPolicyType eventPolicyType,
-                           BooleanSupplier supplier,
-                           Function<PoliciesRequestDto, SpecialEventPolicy> constructor
-    ) {
+    private void addPolicy(EventPolicyType eventPolicyType, BooleanSupplier supplier) {
         if (supplier.getAsBoolean()) {
-            policyList.put(eventPolicyType, constructor.apply(policiesRequestDto));
+            policyList.put(eventPolicyType, eventPolicyType.from(policiesRequestDto));
         }
     }
 
