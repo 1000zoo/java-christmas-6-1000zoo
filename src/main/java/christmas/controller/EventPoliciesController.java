@@ -3,6 +3,7 @@ package christmas.controller;
 import christmas.domain.Customer;
 import christmas.domain.discount.DDayDiscountPolicy;
 import christmas.domain.discount.EventPolicies;
+import christmas.domain.discount.EventPolicyType;
 import christmas.domain.discount.GiveawayEventPolicy;
 import christmas.domain.discount.SpecialDayDiscountPolicy;
 import christmas.domain.discount.SpecialEventPolicy;
@@ -10,8 +11,8 @@ import christmas.domain.discount.WeekdayDiscountPolicy;
 import christmas.domain.discount.WeekendDiscountPolicy;
 import christmas.dto.PoliciesRequestDto;
 import christmas.vo.MenuInformation;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 
@@ -23,7 +24,7 @@ public class EventPoliciesController {
 
     private final Customer customer;
     private final PoliciesRequestDto policiesRequestDto;
-    private final List<SpecialEventPolicy> policyList;
+    private final Map<EventPolicyType, SpecialEventPolicy> policyList;
 
     public EventPoliciesController(Customer customer, MenuInformation giveawayMenu) {
         this.customer = customer;
@@ -33,23 +34,26 @@ public class EventPoliciesController {
                 customer.getDay(),
                 giveawayMenu.price()
         );
-        policyList = new ArrayList<>();
+        policyList = new EnumMap<>(EventPolicyType.class);
     }
 
     public EventPolicies createEventPolicies() {
         if (customer.calculateTotalConsumption() >= MIN_AMOUNT_FOR_DISCOUNT) {
-            addPolicy(this::canAddDDayDiscountPolicy, DDayDiscountPolicy::new);
-            addPolicy(this::canAddWeekdayDiscountPolicy, WeekdayDiscountPolicy::new);
-            addPolicy(this::canAddWeekendDiscountPolicy, WeekendDiscountPolicy::new);
-            addPolicy(this::canAddSpecialDayDiscountPolicy, SpecialDayDiscountPolicy::new);
-            addPolicy(this::canAddGiveawayEventPolicy, GiveawayEventPolicy::new);
+            addPolicy(EventPolicyType.DDAY, this::canAddDDayDiscountPolicy, DDayDiscountPolicy::new);
+            addPolicy(EventPolicyType.WEEKDAY, this::canAddWeekdayDiscountPolicy, WeekdayDiscountPolicy::new);
+            addPolicy(EventPolicyType.WEEKEND, this::canAddWeekendDiscountPolicy, WeekendDiscountPolicy::new);
+            addPolicy(EventPolicyType.SPECIAL_DAY, this::canAddSpecialDayDiscountPolicy, SpecialDayDiscountPolicy::new);
+            addPolicy(EventPolicyType.GIVEAWAY, this::canAddGiveawayEventPolicy, GiveawayEventPolicy::new);
         }
         return EventPolicies.from(policyList);
     }
 
-    private void addPolicy(BooleanSupplier supplier, Function<PoliciesRequestDto, SpecialEventPolicy> constructor) {
+    private void addPolicy(EventPolicyType eventPolicyType,
+                           BooleanSupplier supplier,
+                           Function<PoliciesRequestDto, SpecialEventPolicy> constructor
+    ) {
         if (supplier.getAsBoolean()) {
-            policyList.add(constructor.apply(policiesRequestDto));
+            policyList.put(eventPolicyType, constructor.apply(policiesRequestDto));
         }
     }
 

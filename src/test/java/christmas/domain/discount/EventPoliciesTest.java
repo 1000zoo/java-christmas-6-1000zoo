@@ -19,46 +19,16 @@ class EventPoliciesTest {
     private final static Menu menu = new Menu();
     private final static MenuInformation menuInformation = menu.getInformationOf("샴페인");
 
-    private Customer customer;
+    private static Customer customer;
 
-    private void setUp(int day, String menuName, int quantity) {
+    private static void setUp(int day, String menuName, int quantity) {
         Date date = new Date(day);
         customer = new Customer(date, createOrdersOf(menuName, quantity));
     }
 
-    private Orders createOrdersOf(String menuName, int quantity) {
+    private static Orders createOrdersOf(String menuName, int quantity) {
         return new Orders(List.of(new Order(menu.getInformationOf(menuName), quantity)));
     }
-
-    private static int countPolicies(EventPolicies policies) {
-        int count = 0;
-        for (SpecialEventPolicy ignored : policies) {
-            count++;
-        }
-        return count;
-    }
-
-    @ParameterizedTest
-    @DisplayName("경우의 수 별로 총 몇개의 혜택을 받는 지 테스트")
-    @CsvSource(value = {
-            "31:양송이수프:1:0",     // 혜택 없음
-            "30:양송이수프:2:0",     // 혜택 없음
-            "31:양송이수프:2:1",     // 별표 할인
-            "24:양송이수프:2:2",     // 별표 할인 + 디데이 할인
-            "22:티본스테이크:3:3",   // 주말할인 + 디데이할인 + 샴페인 증정
-            "24:초코케이크:10:4",    // 평일할인 + 별표할인 + 디데이할인 + 샴페인 증정
-    }, delimiter = ':')
-    void countPolicySize(int day, String menuName, int quantity, int answer) {
-        setUp(day, menuName, quantity);
-
-        EventPoliciesController controller = new EventPoliciesController(customer, menuInformation);
-        EventPolicies policies = controller.createEventPolicies();
-
-        int size = countPolicies(policies);
-
-        assertThat(size).isEqualTo(answer);
-    }
-
 
     @ParameterizedTest
     @DisplayName("경우의 수 별로 총 얼마의 할인을 받는 지 테스트")

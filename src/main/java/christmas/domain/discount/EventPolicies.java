@@ -1,35 +1,29 @@
 package christmas.domain.discount;
 
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
-public class EventPolicies implements Iterable<SpecialEventPolicy> {
+public class EventPolicies {
 
-    private final List<SpecialEventPolicy> policies;
+    private final Map<EventPolicyType, SpecialEventPolicy> policies;
 
-    private EventPolicies(List<SpecialEventPolicy> policies) {
-        this.policies = Collections.unmodifiableList(policies);
+    private EventPolicies(Map<EventPolicyType, SpecialEventPolicy> policies) {
+        this.policies = Collections.unmodifiableMap(policies);
     }
 
-    public static EventPolicies from(List<SpecialEventPolicy> policies) {
+    public static EventPolicies from(Map<EventPolicyType, SpecialEventPolicy> policies) {
         return new EventPolicies(policies);
     }
 
     public int getDiscountAmount() {
-        return policies.stream()
+        return policies.values().stream()
                 .mapToInt(SpecialEventPolicy::getDiscountAmount)
                 .sum();
     }
 
     public int getTotalBenefit() {
-        return policies.stream()
+        return policies.values().stream()
                 .mapToInt(SpecialEventPolicy::getTotalBenefit)
                 .sum();
-    }
-
-    @Override
-    public Iterator<SpecialEventPolicy> iterator() {
-        return policies.iterator();
     }
 }
