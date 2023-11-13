@@ -1,18 +1,11 @@
 package christmas.vo;
 
+import christmas.constant.DateEnum;
 import christmas.constant.ErrorMessage;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class Date {
-
-    private final static String INVALID_RANGE_INPUT_ERROR_MESSAGE = "1 ~ 31 사이의 정수만 입력해주세요.";
-
-    private final static int YEAR = 2023;
-    private final static int MONTH = 12;
-    private final static int MIN_DAY = 1;
-    private final static int MAX_DAY = 31;
-    private final static int CHRISTMAS = 25;
 
     private final int day;
     private final DayOfWeek dayOfWeek;
@@ -20,7 +13,7 @@ public class Date {
     public Date(int day) {
         validate(day);
         this.day = day;
-        LocalDate date = LocalDate.of(YEAR, MONTH, day);
+        LocalDate date = LocalDate.of(DateEnum.YEAR.getDateValue(), DateEnum.MONTH.getDateValue(), day);
         this.dayOfWeek = date.getDayOfWeek();
     }
 
@@ -33,11 +26,11 @@ public class Date {
     }
 
     public boolean isSpecialDay() {
-        return dayOfWeek == DayOfWeek.SUNDAY || day == CHRISTMAS;
+        return dayOfWeek == DayOfWeek.SUNDAY || day == DateEnum.CHRISTMAS.getDateValue();
     }
 
     public boolean hasChristmasPassed() {
-        return day > CHRISTMAS;
+        return day > DateEnum.CHRISTMAS.getDateValue();
     }
 
     public int getDay() {
@@ -45,7 +38,7 @@ public class Date {
     }
 
     private void validate(int day) {
-        if (day < MIN_DAY || day > MAX_DAY) {
+        if (day < DateEnum.MIN_DAY.getDateValue() || day > DateEnum.MAX_DAY.getDateValue()) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }

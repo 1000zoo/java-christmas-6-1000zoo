@@ -1,12 +1,11 @@
 package christmas.domain;
 
 import christmas.constant.ErrorMessage;
+import christmas.constant.QuantityEnum;
 import christmas.dto.OrdersDto;
 import java.util.List;
 
 public class Orders {
-
-    private final static int MAX_ORDER_QUANTITY = 20;
 
     private final List<Order> orders;
 
@@ -21,7 +20,7 @@ public class Orders {
     }
 
     private void throwIfOrderedTooMuch() {
-        if (calculateTotalQuantities() > MAX_ORDER_QUANTITY) {
+        if (calculateTotalQuantities() > QuantityEnum.MAX.getQuantity()) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }

@@ -19,12 +19,8 @@ public class Menu {
         return repository.containsKey(name);
     }
 
-    private boolean notContainsKey(String name) {
-        return !containsKey(name);
-    }
-
     public MenuInformation getInformationOf(String name) {
-        if (notContainsKey(name)) {
+        if (!containsKey(name)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         return repository.get(name);

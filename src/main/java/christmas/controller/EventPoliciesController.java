@@ -1,5 +1,7 @@
 package christmas.controller;
 
+import christmas.constant.AmountEnum;
+import christmas.constant.QuantityEnum;
 import christmas.domain.Customer;
 import christmas.domain.discount.DDayDiscountPolicy;
 import christmas.domain.discount.EventPolicies;
@@ -18,10 +20,6 @@ import java.util.function.Function;
 
 public class EventPoliciesController {
 
-    private final static int DOESNT_EXIST = 0;
-    private final static int MIN_AMOUNT_FOR_DISCOUNT = 10_000;
-    private final static int MIN_AMOUNT_FOR_GIVEAWAY = 120_000;
-
     private final Customer customer;
     private final PoliciesRequestDto policiesRequestDto;
     private final Map<EventPolicyType, SpecialEventPolicy> policyList;
@@ -38,7 +36,7 @@ public class EventPoliciesController {
     }
 
     public EventPolicies createEventPolicies() {
-        if (customer.calculateTotalPrice() >= MIN_AMOUNT_FOR_DISCOUNT) {
+        if (isEventApplied()) {
             addPolicy(EventPolicyType.DDAY, this::canAddDDayDiscountPolicy, DDayDiscountPolicy::new);
             addPolicy(EventPolicyType.WEEKDAY, this::canAddWeekdayDiscountPolicy, WeekdayDiscountPolicy::new);
             addPolicy(EventPolicyType.WEEKEND, this::canAddWeekendDiscountPolicy, WeekendDiscountPolicy::new);
@@ -46,6 +44,10 @@ public class EventPoliciesController {
             addPolicy(EventPolicyType.GIVEAWAY, this::canAddGiveawayEventPolicy, GiveawayEventPolicy::new);
         }
         return EventPolicies.from(policyList);
+    }
+
+    private boolean isEventApplied() {
+        return customer.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_EVENT.getAmount();
     }
 
     private void addPolicy(EventPolicyType eventPolicyType,
@@ -62,11 +64,11 @@ public class EventPoliciesController {
     }
 
     private boolean canAddWeekdayDiscountPolicy() {
-        return customer.orderAtWeekday() && customer.countDessert() > DOESNT_EXIST;
+        return customer.orderAtWeekday() && customer.countDessert() > QuantityEnum.MIN.getQuantity();
     }
 
     private boolean canAddWeekendDiscountPolicy() {
-        return customer.orderAtWeekend() && customer.countMain() > DOESNT_EXIST;
+        return customer.orderAtWeekend() && customer.countMain() > QuantityEnum.MIN.getQuantity();
     }
 
     private boolean canAddSpecialDayDiscountPolicy() {
@@ -74,7 +76,6 @@ public class EventPoliciesController {
     }
 
     private boolean canAddGiveawayEventPolicy() {
-        return customer.calculateTotalPrice() >= MIN_AMOUNT_FOR_GIVEAWAY;
+        return customer.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_GIVEAWAY.getAmount();
     }
-
 }

@@ -39,13 +39,4 @@ public record MenuInformation(String name, int price, MenuType menuType) {
     public int hashCode() {
         return Objects.hash(name, price, menuType);
     }
-
-    @Override
-    public String toString() {
-        return "MenuInformation{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", menuType=" + menuType +
-                '}';
-    }
 }
