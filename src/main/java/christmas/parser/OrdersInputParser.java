@@ -22,6 +22,11 @@ public class OrdersInputParser extends InputParser<Orders> {
     }
 
     @Override
+    public void clear() {
+        orders.clear();
+    }
+
+    @Override
     protected void validate(String input) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
@@ -34,10 +39,18 @@ public class OrdersInputParser extends InputParser<Orders> {
     @Override
     protected Orders convert(String input) {
         for (String stringOrder : splitInput(input)) {
-            Order order = orderParser.parse(stringOrder);
+            Order order = tryCreateOrder(stringOrder);
             addOrder(order);
         }
         return new Orders(Collections.unmodifiableList(orders));
+    }
+
+    private Order tryCreateOrder(String stringOrder) {
+        try {
+            return orderParser.parse(stringOrder);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
+        }
     }
 
     private void addOrder(Order order) {
