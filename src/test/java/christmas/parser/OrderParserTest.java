@@ -20,6 +20,16 @@ class OrderParserTest {
     }
 
     @ParameterizedTest
+    @DisplayName("메뉴에 없는 주문이 들어오면 에러가 발생. 주문 갯수 두개 이상")
+    @ValueSource(strings = {"티본스테이크-1, 김치찌개-2"})
+    void notExistMenuOrderTwoMenus(String input) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> parser.parse(input)
+        );
+    }
+
+    @ParameterizedTest
     @DisplayName("메뉴에 없는 주문이 들어오면 에러가 발생")
     @ValueSource(strings = {"김치찌개-2"})
     void notExistMenuOrder(String input) {

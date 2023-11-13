@@ -4,8 +4,6 @@ import christmas.constant.ErrorMessage;
 
 public class IntegerInputValidator implements Validator<String> {
 
-    private final static String NO_INTEGER_INPUT_ERROR_MESSAGE = "유효하지 않은 날짜입니다. 다시 입력해 주세요.";
-
     private final static String INTEGER_PATTERN = "^\\d+$";
 
     public void validate(String target) {
