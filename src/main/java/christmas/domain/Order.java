@@ -21,8 +21,8 @@ public class Order {
         }
     }
 
-    public String getMenuName() {
-        return menuInformation.name();
+    public boolean hasSameMenu(Order order) {
+        return menuInformation.equals(order.menuInformation);
     }
 
     public int getQuantity() {

@@ -12,16 +12,16 @@ import java.util.List;
 public class OrdersInputParser extends InputParser<Orders> {
 
     private final OrderParser orderParser;
-    private final List<Order> orders;
+    private final List<Order> orderList;
 
     public OrdersInputParser(Menu menu) {
         this.orderParser = new OrderParser(menu);
-        orders = new ArrayList<>();
+        orderList = new ArrayList<>();
     }
 
     @Override
     public void clear() {
-        orders.clear();
+        orderList.clear();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class OrdersInputParser extends InputParser<Orders> {
             Order order = tryCreateOrder(stringOrder);
             addOrder(order);
         }
-        return new Orders(Collections.unmodifiableList(orders));
+        return new Orders(Collections.unmodifiableList(orderList));
     }
 
     private Order tryCreateOrder(String stringOrder) {
@@ -52,13 +52,17 @@ public class OrdersInputParser extends InputParser<Orders> {
     }
 
     private void addOrder(Order order) {
-        if (containsName(order.getMenuName())) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
-        }
-        orders.add(order);
+        throwIfContainsAlready(order);
+        orderList.add(order);
     }
 
-    private boolean containsName(String menuName) {
-        return orders.stream().distinct().anyMatch(order -> menuName.equals(order.getMenuName()));
+    private void throwIfContainsAlready(Order order) {
+        if (containsAlready(order)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
+        }
+    }
+
+    private boolean containsAlready(Order order) {
+        return orderList.stream().anyMatch(other -> other.hasSameMenu(order));
     }
 }

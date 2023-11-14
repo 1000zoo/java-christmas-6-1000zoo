@@ -79,7 +79,7 @@ class OrderParserTest {
         Order answer = new Order(menu.getInformationOf(name), quantity);
         Order order = parser.parse(input);
 
-        assertThat(order.getMenuName()).isEqualTo(answer.getMenuName());
+        assertThat(order.hasSameMenu(answer)).isEqualTo(true);
         assertThat(order.getQuantity()).isEqualTo(answer.getQuantity());
     }
 }
