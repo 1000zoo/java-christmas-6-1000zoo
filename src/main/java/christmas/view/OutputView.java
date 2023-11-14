@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.constant.InstructionMessage;
 import christmas.constant.KoreanWonFormat;
 import christmas.constant.ResultFormat;
 
@@ -21,5 +22,9 @@ public class OutputView {
 
     protected String fit(ResultFormat resultFormat, Object... objects) {
         return resultFormat.getFormatMessage(objects);
+    }
+    
+    protected void printNothing() {
+        printMessage(InstructionMessage.DOES_NOT_EXIST.getMessage());
     }
 }

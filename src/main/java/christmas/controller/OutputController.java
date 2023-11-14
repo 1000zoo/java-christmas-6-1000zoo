@@ -1,16 +1,14 @@
 package christmas.controller;
 
-import christmas.configuration.GiveawayMenu;
 import christmas.constant.InstructionMessage;
 import christmas.constant.KoreanWonFormat;
-import christmas.constant.ResultFormat;
 import christmas.constant.SummaryMessage;
 import christmas.domain.Badge;
-import christmas.domain.discount.EventPolicyType;
 import christmas.dto.BenefitResultDto;
 import christmas.dto.CustomerDto;
 import christmas.view.CustomerResultPrinter;
 import christmas.view.OutputView;
+import christmas.view.PolicyResultPrinter;
 
 public class OutputController {
 
@@ -30,44 +28,8 @@ public class OutputController {
     }
 
     public void printPolicyResult(BenefitResultDto benefitResultDto) {
-        printGiveawayEventResult(benefitResultDto);
-        printEventList(benefitResultDto);
-    }
-
-    private void printGiveawayEventResult(BenefitResultDto benefitResultDto) {
-        outputView.printMessage(SummaryMessage.GIVEAWAY_MENU.getMessage());
-        printGiveawayMenu(benefitResultDto);
-    }
-
-    private void printGiveawayMenu(BenefitResultDto benefitResultDto) {
-        if (benefitResultDto.containsGiveaway()) {
-            String menuName = GiveawayMenu.INSTANCE.getMenuName();
-            outputView.printMessage(ResultFormat.ORDER_FORMAT.getFormatMessage(menuName, 1));
-            return;
-        }
-        printNothing();
-    }
-
-    private void printEventList(BenefitResultDto benefitResultDto) {
-        outputView.printMessage(SummaryMessage.EVENT_RESULT.getMessage());
-        if (benefitResultDto.isEmpty()) {
-            printNothing();
-            return;
-        }
-        for (EventPolicyType eventPolicyType : EventPolicyType.values()) {
-            int benefitAmount = benefitResultDto.getBenefitOf(eventPolicyType);
-            printEvent(eventPolicyType, benefitAmount);
-        }
-    }
-
-    private void printEvent(EventPolicyType type, int amount) {
-        if (amount == 0) {
-            return;
-        }
-
-        String wonFormat = fit(KoreanWonFormat.DISCOUNT, amount);
-        String eventFormat = fit(ResultFormat.EVENT_FORMAT, type.getTypeName(), wonFormat);
-        outputView.printMessage(eventFormat);
+        PolicyResultPrinter printer = new PolicyResultPrinter();
+        printer.printPolicyResult(benefitResultDto);
     }
 
     public void printTotalBenefitAmount(int amount) {
@@ -86,15 +48,7 @@ public class OutputController {
         outputView.printMessage(badge.getName());
     }
 
-    private void printNothing() {
-        outputView.printMessage(InstructionMessage.DOES_NOT_EXIST.getMessage());
-    }
-
     private String fit(KoreanWonFormat koreanWonFormat, int amount) {
         return koreanWonFormat.getAmountMessage(amount);
-    }
-
-    private String fit(ResultFormat resultFormat, Object... objects) {
-        return resultFormat.getFormatMessage(objects);
     }
 }
