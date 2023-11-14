@@ -3,7 +3,6 @@ package christmas.vo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,10 +57,5 @@ public class DateTest {
 
         assertThat(falseResult).isEqualTo(false);
         assertThat(trueResult).isEqualTo(true);
-    }
-
-    @Test
-    void test() {
-        LocalDate date = LocalDate.of(2023, 12, 0);
     }
 }
