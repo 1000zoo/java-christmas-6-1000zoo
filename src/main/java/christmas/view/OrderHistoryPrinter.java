@@ -7,9 +7,9 @@ import christmas.dto.OrderDto;
 import christmas.dto.OrderHistoryDto;
 import christmas.dto.OrdersDto;
 
-public class CustomerResultPrinter extends OutputView {
+public class OrderHistoryPrinter extends OutputView {
 
-    public void printCustomerResults(OrderHistoryDto orderHistoryDTO) {
+    public void printOrderHistory(OrderHistoryDto orderHistoryDTO) {
         printDateResult(orderHistoryDTO.day());
         printOrdersResult(orderHistoryDTO.ordersDto());
     }

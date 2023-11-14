@@ -6,7 +6,6 @@ import christmas.domain.Menu;
 import christmas.domain.OrderHistory;
 import christmas.domain.Orders;
 import christmas.domain.discount.EventPolicies;
-import christmas.dto.BenefitResultDto;
 import christmas.vo.Date;
 import christmas.vo.MenuInformation;
 
@@ -23,13 +22,13 @@ public class Controller {
     public void start() {
         setGiveawayMenu();
 
-        OrderHistory orderHistory = createCustomer();
-        outputController.printCustomerResults(orderHistory.toDTO());
+        OrderHistory orderHistory = createOrderHistory();
+        outputController.printOutputHistory(orderHistory);
 
         EventPolicies eventPolicies = createEventPolicies(orderHistory);
-        BenefitResultDto benefitResultDto = eventPolicies.createBenefitResultDto();
+        outputController.printPolicyResult(eventPolicies);
 
-        outputController.printPolicyResult(benefitResultDto);
+
     }
 
     private void setGiveawayMenu() {
@@ -37,7 +36,7 @@ public class Controller {
         GiveawayMenu.INSTANCE.init(menuInformation);
     }
 
-    private OrderHistory createCustomer() {
+    private OrderHistory createOrderHistory() {
         outputController.printWelcomeMessage();
         Date date = askVisitDate();
         Orders orders = takeOrder();
@@ -57,9 +56,5 @@ public class Controller {
     private EventPolicies createEventPolicies(OrderHistory orderHistory) {
         EventPoliciesController eventPoliciesController = new EventPoliciesController(orderHistory);
         return eventPoliciesController.createEventPolicies();
-    }
-
-    private int calculateAfterDiscountAmount(OrderHistory orderHistory, EventPolicies eventPolicies) {
-        return orderHistory.calculateTotalPrice() - eventPolicies.getDiscountAmount();
     }
 }

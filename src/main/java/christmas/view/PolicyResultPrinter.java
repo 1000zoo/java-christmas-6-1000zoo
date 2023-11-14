@@ -12,6 +12,7 @@ public class PolicyResultPrinter extends OutputView {
     public void printPolicyResult(BenefitResultDto benefitResultDto) {
         printGiveawayEventResult(benefitResultDto);
         printEventList(benefitResultDto);
+        printTotalBenefit(benefitResultDto);
     }
 
     private void printGiveawayEventResult(BenefitResultDto benefitResultDto) {
@@ -48,5 +49,10 @@ public class PolicyResultPrinter extends OutputView {
         String wonFormat = fit(KoreanWonFormat.DISCOUNT, amount);
         String eventFormat = fit(ResultFormat.EVENT_FORMAT, type.getTypeName(), wonFormat);
         printMessage(eventFormat);
+    }
+
+    private void printTotalBenefit(BenefitResultDto benefitResultDto) {
+        printMessage(SummaryMessage.BENEFITS_RESULT.getMessage());
+        printMessage(fit(KoreanWonFormat.DISCOUNT, benefitResultDto.getTotalBenefit()));
     }
 }

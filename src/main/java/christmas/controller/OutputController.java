@@ -1,9 +1,9 @@
 package christmas.controller;
 
 import christmas.constant.InstructionMessage;
-import christmas.dto.BenefitResultDto;
-import christmas.dto.OrderHistoryDto;
-import christmas.view.CustomerResultPrinter;
+import christmas.domain.OrderHistory;
+import christmas.domain.discount.EventPolicies;
+import christmas.view.OrderHistoryPrinter;
 import christmas.view.OutputView;
 import christmas.view.PolicyResultPrinter;
 
@@ -19,13 +19,13 @@ public class OutputController {
         outputView.printMessage(InstructionMessage.WELCOME.getMessage());
     }
 
-    public void printCustomerResults(OrderHistoryDto orderHistoryDTO) {
-        CustomerResultPrinter printer = new CustomerResultPrinter();
-        printer.printCustomerResults(orderHistoryDTO);
+    public void printOutputHistory(OrderHistory orderHistory) {
+        OrderHistoryPrinter printer = new OrderHistoryPrinter();
+        printer.printOrderHistory(orderHistory.toDTO());
     }
 
-    public void printPolicyResult(BenefitResultDto benefitResultDto) {
+    public void printPolicyResult(EventPolicies eventPolicies) {
         PolicyResultPrinter printer = new PolicyResultPrinter();
-        printer.printPolicyResult(benefitResultDto);
+        printer.printPolicyResult(eventPolicies.createBenefitResultDto());
     }
 }
