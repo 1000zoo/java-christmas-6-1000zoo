@@ -25,7 +25,7 @@ public class InputController<R> {
                 return parser.parse(inputView.readLine());
             } catch (IllegalArgumentException exception) {
                 parser.clear();
-                outputView.printErrorMessage(exception.getMessage());
+                outputView.printMessage(exception.getMessage());
             }
         }
     }

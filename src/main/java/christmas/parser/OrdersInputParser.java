@@ -36,7 +36,7 @@ public class OrdersInputParser extends InputParser<Orders> {
 
     @Override
     protected Orders convert(String input) {
-        for (String stringOrder : splitInput(input)) {
+        for (String stringOrder : input.split(DelimiterEnum.ORDERS.getDelimiter())) {
             Order order = tryCreateOrder(stringOrder);
             addOrder(order);
         }
@@ -60,9 +60,5 @@ public class OrdersInputParser extends InputParser<Orders> {
 
     private boolean containsName(String menuName) {
         return orders.stream().distinct().anyMatch(order -> menuName.equals(order.getMenuName()));
-    }
-
-    private List<String> splitInput(String input) {
-        return List.of(input.split(DelimiterEnum.ORDERS.getDelimiter()));
     }
 }
