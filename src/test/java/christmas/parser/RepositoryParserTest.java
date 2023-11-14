@@ -1,9 +1,10 @@
 package christmas.parser;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import christmas.vo.MenuInformation;
 import java.util.List;
 import java.util.Map;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class RepositoryParserTest {
     private Parser<List<String>, Map<String, MenuInformation>> parser;
 
     @BeforeEach
-    private void before() {
+    void setUp() {
         parser = new RepositoryParser();
     }
 
@@ -25,7 +26,7 @@ class RepositoryParserTest {
         );
         Map<String, MenuInformation> menu = parser.parse(stringRepository);
 
-        Assertions.assertThat(menu.size()).isEqualTo(1);
+        assertThat(menu.size()).isEqualTo(1);
         System.out.println("menu = " + menu);
     }
 }
