@@ -13,7 +13,7 @@ public class DateTest {
 
     @ParameterizedTest
     @DisplayName("유효하지 않은 날짜 예외처리 테스트")
-    @ValueSource(ints = {0, 32})
+    @ValueSource(ints = {-1, 0, 32})
     void invalidDay(int day) {
         assertThrows(
                 IllegalArgumentException.class,
