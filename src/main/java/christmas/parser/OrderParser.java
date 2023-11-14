@@ -10,8 +10,6 @@ import java.util.List;
 
 public class OrderParser implements Parser<String, Order> {
 
-    private final static int SPLIT_LIST_LENGTH = 2;
-
     private final Menu menu;
 
     public OrderParser(Menu menu) {
@@ -20,6 +18,8 @@ public class OrderParser implements Parser<String, Order> {
 
     @Override
     public Order parse(String input) {
+        throwIfInvalidPattern(input);
+
         List<String> stringOrder = split(input);
 
         MenuInformation menuInformation = menu.getInformationOf(stringOrder.get(IndicesEnum.MENU.index()));
@@ -29,15 +29,12 @@ public class OrderParser implements Parser<String, Order> {
     }
 
     private List<String> split(String input) {
-        List<String> splitInput = List.of(input.split(DelimiterEnum.ORDER.getDelimiter()));
-        throwIfInvalidSize(splitInput.size());
-
-        return splitInput;
+        return List.of(input.split(DelimiterEnum.ORDER.getDelimiter()));
     }
 
-    private void throwIfInvalidSize(int size) {
-        if (size != SPLIT_LIST_LENGTH) {
-            throw new IllegalArgumentException();
+    private void throwIfInvalidPattern(String input) {
+        if (!PatternEnum.ORDER.matches(input)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 

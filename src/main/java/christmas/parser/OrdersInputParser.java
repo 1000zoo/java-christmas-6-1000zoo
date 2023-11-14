@@ -19,6 +19,7 @@ public class OrdersInputParser extends InputParser<Orders> {
         orderList = new ArrayList<>();
     }
 
+
     @Override
     public void clear() {
         orderList.clear();
@@ -26,10 +27,7 @@ public class OrdersInputParser extends InputParser<Orders> {
 
     @Override
     protected void validate(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
-        }
-        if (input.contains(DelimiterEnum.INVALID_ORDERS.getDelimiter())) {
+        if (!PatternEnum.ORDERS.matches(input)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
