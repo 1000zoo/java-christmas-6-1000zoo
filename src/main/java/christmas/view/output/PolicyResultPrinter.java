@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.view.output;
 
 import christmas.configuration.GiveawayMenu;
 import christmas.constant.KoreanWonFormat;

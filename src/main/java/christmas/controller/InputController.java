@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.parser.InputParser;
 import christmas.view.InputView;
-import christmas.view.OutputView;
+import christmas.view.output.OutputView;
 
 public class InputController<R> {
 

@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.view.output;
 
 import christmas.constant.KoreanWonFormat;
 import christmas.constant.ResultFormat;

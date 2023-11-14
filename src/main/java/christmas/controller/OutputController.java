@@ -4,10 +4,10 @@ import christmas.constant.InstructionMessage;
 import christmas.domain.Customer;
 import christmas.domain.OrderHistory;
 import christmas.domain.discount.EventPolicies;
-import christmas.view.CustomerResultPrinter;
-import christmas.view.OrderHistoryPrinter;
-import christmas.view.OutputView;
-import christmas.view.PolicyResultPrinter;
+import christmas.view.output.CustomerResultPrinter;
+import christmas.view.output.OrderHistoryPrinter;
+import christmas.view.output.OutputView;
+import christmas.view.output.PolicyResultPrinter;
 
 public class OutputController {
 
