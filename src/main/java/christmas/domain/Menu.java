@@ -14,12 +14,11 @@ public class Menu {
     public Menu() {
         MenuRepository menuRepository = new MenuRepository(new RepositoryParser());
         repository = menuRepository.loadRepository();
-        setGiveawayMenu();
+        setGiveawayMenu(menuRepository.loadGiveawayMenuName());
     }
 
-    private void setGiveawayMenu() {
-        MenuInformation menuInformation = getInformationOf("샴페인");
-        GiveawayMenu.INSTANCE.init(menuInformation);
+    private void setGiveawayMenu(String menuName) {
+        GiveawayMenu.INSTANCE.init(getInformationOf(menuName));
     }
 
     public boolean containsKey(String name) {
