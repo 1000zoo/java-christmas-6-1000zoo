@@ -4,6 +4,8 @@ import christmas.constant.ErrorMessage;
 import christmas.constant.QuantityEnum;
 import christmas.dto.OrdersDto;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Orders {
 
@@ -35,24 +37,28 @@ public class Orders {
         return orders.stream().noneMatch(Order::isFood);
     }
 
+    private int calculateSum(Function<Order, Integer> function) {
+        return orders.stream().mapToInt(function::apply).sum();
+    }
+
     public int calculateTotalQuantities() {
-        return orders.stream().mapToInt(Order::getQuantity).sum();
+        return calculateSum(Order::getQuantity);
     }
 
     public int calculateTotalPrice() {
-        return orders.stream().mapToInt(Order::getTotalPrice).sum();
+        return calculateSum(Order::getTotalPrice);
+    }
+
+    private int countMenuType(Predicate<Order> menuPredicate) {
+        return orders.stream().filter(menuPredicate).mapToInt(Order::getQuantity).sum();
     }
 
     public int countDessert() {
-        return orders.stream()
-                .filter(Order::isDessert)
-                .mapToInt(Order::getQuantity).sum();
+        return countMenuType(Order::isDessert);
     }
 
     public int countMain() {
-        return orders.stream()
-                .filter(Order::isMain)
-                .mapToInt(Order::getQuantity).sum();
+        return countMenuType(Order::isMain);
     }
 
     public OrdersDto toDto() {

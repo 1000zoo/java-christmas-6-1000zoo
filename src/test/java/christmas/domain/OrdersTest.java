@@ -37,4 +37,20 @@ class OrdersTest {
         int answerPrice = 6000 * 2 + 55000 * 3 + 15000;
         assertThat(totalPrice).isEqualTo(answerPrice);
     }
+
+    @Test
+    @DisplayName("총 디저트 수량 테스트")
+    void totalDessert() {
+        int dessertCount = orders.countDessert();
+        int answer = 1;
+        assertThat(dessertCount).isEqualTo(answer);
+    }
+
+    @Test
+    @DisplayName("총 메인 수량 테스트")
+    void totalMain() {
+        int mainCount = orders.countMain();
+        int answer = 3;
+        assertThat(mainCount).isEqualTo(answer);
+    }
 }
