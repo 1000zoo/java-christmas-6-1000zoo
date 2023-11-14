@@ -1,11 +1,25 @@
 package christmas.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class DateTest {
+
+    @ParameterizedTest
+    @DisplayName("유효하지 않은 날짜 예외처리 테스트")
+    @ValueSource(ints = {0, 32})
+    void invalidDay(int day) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Date(day)
+        );
+    }
 
     @Test
     @DisplayName("평일 확인")
@@ -44,5 +58,10 @@ public class DateTest {
 
         assertThat(falseResult).isEqualTo(false);
         assertThat(trueResult).isEqualTo(true);
+    }
+
+    @Test
+    void test() {
+        LocalDate date = LocalDate.of(2023, 12, 0);
     }
 }
