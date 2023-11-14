@@ -3,15 +3,15 @@ package christmas.view;
 import christmas.constant.KoreanWonFormat;
 import christmas.constant.ResultFormat;
 import christmas.constant.SummaryMessage;
-import christmas.dto.CustomerDto;
 import christmas.dto.OrderDto;
+import christmas.dto.OrderHistoryDto;
 import christmas.dto.OrdersDto;
 
 public class CustomerResultPrinter extends OutputView {
 
-    public void printCustomerResults(CustomerDto customerDTO) {
-        printDateResult(customerDTO.day());
-        printOrdersResult(customerDTO.ordersDto());
+    public void printCustomerResults(OrderHistoryDto orderHistoryDTO) {
+        printDateResult(orderHistoryDTO.day());
+        printOrdersResult(orderHistoryDTO.ordersDto());
     }
 
     private void printDateResult(int day) {

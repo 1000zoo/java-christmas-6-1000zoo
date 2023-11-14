@@ -3,9 +3,9 @@ package christmas.domain.discount;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.controller.EventPoliciesController;
-import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.Order;
+import christmas.domain.OrderHistory;
 import christmas.domain.Orders;
 import christmas.vo.Date;
 import christmas.vo.MenuInformation;
@@ -19,11 +19,11 @@ class EventPoliciesTest {
     private final static Menu menu = new Menu();
     private final static MenuInformation menuInformation = menu.getInformationOf("샴페인");
 
-    private static Customer customer;
+    private static OrderHistory orderHistory;
 
     private static void setUp(int day, String menuName, int quantity) {
         Date date = new Date(day);
-        customer = new Customer(date, createOrdersOf(menuName, quantity));
+        orderHistory = new OrderHistory(date, createOrdersOf(menuName, quantity));
     }
 
     private static Orders createOrdersOf(String menuName, int quantity) {
@@ -43,7 +43,7 @@ class EventPoliciesTest {
     void discountAmount(int day, String menuName, int quantity, int answer) {
         setUp(day, menuName, quantity);
 
-        EventPoliciesController controller = new EventPoliciesController(customer);
+        EventPoliciesController controller = new EventPoliciesController(orderHistory);
         EventPolicies policies = controller.createEventPolicies();
 
         int discountAmount = policies.getDiscountAmount();
@@ -64,7 +64,7 @@ class EventPoliciesTest {
     void benefitAmount(int day, String menuName, int quantity, int answer) {
         setUp(day, menuName, quantity);
 
-        EventPoliciesController controller = new EventPoliciesController(customer);
+        EventPoliciesController controller = new EventPoliciesController(orderHistory);
         EventPolicies policies = controller.createEventPolicies();
 
         int discountAmount = policies.getTotalBenefit();

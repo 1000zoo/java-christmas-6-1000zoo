@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.domain.Customer;
+import christmas.domain.OrderHistory;
 import christmas.domain.discount.EventPolicies;
 import christmas.domain.discount.EventPolicyType;
 import christmas.domain.discount.SpecialEventPolicy;
@@ -10,16 +10,16 @@ import java.util.Map;
 
 public class EventPoliciesController {
 
-    private final Customer customer;
+    private final OrderHistory orderHistory;
     private final PoliciesRequestDto policiesRequestDto;
     private final Map<EventPolicyType, SpecialEventPolicy> policyList;
 
-    public EventPoliciesController(Customer customer) {
-        this.customer = customer;
+    public EventPoliciesController(OrderHistory orderHistory) {
+        this.orderHistory = orderHistory;
         policiesRequestDto = new PoliciesRequestDto(
-                customer.countDessert(),
-                customer.countMain(),
-                customer.getDay()
+                orderHistory.countDessert(),
+                orderHistory.countMain(),
+                orderHistory.getDay()
         );
         policyList = new EnumMap<>(EventPolicyType.class);
     }
@@ -32,7 +32,7 @@ public class EventPoliciesController {
     }
 
     private void addPolicy(EventPolicyType eventPolicyType) {
-        if (eventPolicyType.canAddEvent(customer)) {
+        if (eventPolicyType.canAddEvent(orderHistory)) {
             policyList.put(eventPolicyType, eventPolicyType.from(policiesRequestDto));
         }
     }

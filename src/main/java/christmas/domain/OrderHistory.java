@@ -1,14 +1,14 @@
 package christmas.domain;
 
-import christmas.dto.CustomerDto;
+import christmas.dto.OrderHistoryDto;
 import christmas.vo.Date;
 
-public class Customer {
+public class OrderHistory {
 
     private final Date date;
     private final Orders orders;
 
-    public Customer(Date date, Orders orders) {
+    public OrderHistory(Date date, Orders orders) {
         this.date = date;
         this.orders = orders;
     }
@@ -45,7 +45,7 @@ public class Customer {
         return date.isSpecialDay();
     }
 
-    public CustomerDto toDTO() {
-        return new CustomerDto(date.getDay(), orders.toDto());
+    public OrderHistoryDto toDTO() {
+        return new OrderHistoryDto(date.getDay(), orders.toDto());
     }
 }

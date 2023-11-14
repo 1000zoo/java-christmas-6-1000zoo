@@ -9,7 +9,6 @@ import christmas.dto.BenefitResultDto;
 
 public class PolicyResultPrinter extends OutputView {
 
-
     public void printPolicyResult(BenefitResultDto benefitResultDto) {
         printGiveawayEventResult(benefitResultDto);
         printEventList(benefitResultDto);

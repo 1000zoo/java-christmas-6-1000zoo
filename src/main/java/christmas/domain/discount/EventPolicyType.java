@@ -2,7 +2,7 @@ package christmas.domain.discount;
 
 import christmas.constant.AmountEnum;
 import christmas.constant.QuantityEnum;
-import christmas.domain.Customer;
+import christmas.domain.OrderHistory;
 import christmas.dto.PoliciesRequestDto;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,11 +16,11 @@ public enum EventPolicyType {
 
     private final String typeName;
     private final Function<PoliciesRequestDto, SpecialEventPolicy> constructor;
-    private final Predicate<Customer> customerPredicate;
+    private final Predicate<OrderHistory> customerPredicate;
 
     EventPolicyType(String typeName,
                     Function<PoliciesRequestDto, SpecialEventPolicy> constructor,
-                    Predicate<Customer> predicate) {
+                    Predicate<OrderHistory> predicate) {
         this.typeName = typeName;
         this.constructor = constructor;
         this.customerPredicate = predicate;
@@ -34,31 +34,31 @@ public enum EventPolicyType {
         return constructor.apply(policiesRequestDto);
     }
 
-    public boolean canAddEvent(Customer customer) {
-        return isEventApplied(customer) && customerPredicate.test(customer);
+    public boolean canAddEvent(OrderHistory orderHistory) {
+        return isEventApplied(orderHistory) && customerPredicate.test(orderHistory);
     }
 
-    private static boolean isEventApplied(Customer customer) {
-        return customer.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_EVENT.getAmount();
+    private static boolean isEventApplied(OrderHistory orderHistory) {
+        return orderHistory.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_EVENT.getAmount();
     }
 
-    private static boolean dDayPolicyPredicate(Customer customer) {
-        return customer.orderBeforeChristmas();
+    private static boolean dDayPolicyPredicate(OrderHistory orderHistory) {
+        return orderHistory.orderBeforeChristmas();
     }
 
-    private static boolean weekdayPolicyPredicate(Customer customer) {
-        return customer.orderAtWeekday() && customer.countDessert() > QuantityEnum.MIN.getQuantity();
+    private static boolean weekdayPolicyPredicate(OrderHistory orderHistory) {
+        return orderHistory.orderAtWeekday() && orderHistory.countDessert() > QuantityEnum.MIN.getQuantity();
     }
 
-    private static boolean weekendPolicyPredicate(Customer customer) {
-        return customer.orderAtWeekend() && customer.countMain() > QuantityEnum.MIN.getQuantity();
+    private static boolean weekendPolicyPredicate(OrderHistory orderHistory) {
+        return orderHistory.orderAtWeekend() && orderHistory.countMain() > QuantityEnum.MIN.getQuantity();
     }
 
-    private static boolean specialDayPolicyPredicate(Customer customer) {
-        return customer.orderAtSpecialDay();
+    private static boolean specialDayPolicyPredicate(OrderHistory orderHistory) {
+        return orderHistory.orderAtSpecialDay();
     }
 
-    private static boolean giveawayPolicyPredicate(Customer customer) {
-        return customer.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_GIVEAWAY.getAmount();
+    private static boolean giveawayPolicyPredicate(OrderHistory orderHistory) {
+        return orderHistory.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_GIVEAWAY.getAmount();
     }
 }

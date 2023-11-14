@@ -2,8 +2,8 @@ package christmas.domain.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.Customer;
 import christmas.domain.Menu;
+import christmas.domain.OrderHistory;
 import christmas.domain.Orders;
 import christmas.parser.OrdersInputParser;
 import christmas.vo.Date;
@@ -31,9 +31,9 @@ class EventPolicyTypeTest {
     void canCustomerReceiveDDayEvent(int day, String stringOrder, boolean answer) {
         Date date = new Date(day);
         Orders orders = ordersInputParser.parse(stringOrder);
-        Customer customer = new Customer(date, orders);
+        OrderHistory orderHistory = new OrderHistory(date, orders);
 
-        boolean result = EventPolicyType.DDAY.canAddEvent(customer);
+        boolean result = EventPolicyType.DDAY.canAddEvent(orderHistory);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -50,9 +50,9 @@ class EventPolicyTypeTest {
     void canCustomerReceiveWeekdayEvent(int day, String stringOrder, boolean answer) {
         Date date = new Date(day);
         Orders orders = ordersInputParser.parse(stringOrder);
-        Customer customer = new Customer(date, orders);
+        OrderHistory orderHistory = new OrderHistory(date, orders);
 
-        boolean result = EventPolicyType.WEEKDAY.canAddEvent(customer);
+        boolean result = EventPolicyType.WEEKDAY.canAddEvent(orderHistory);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -69,9 +69,9 @@ class EventPolicyTypeTest {
     void canCustomerReceiveWeekendEvent(int day, String stringOrder, boolean answer) {
         Date date = new Date(day);
         Orders orders = ordersInputParser.parse(stringOrder);
-        Customer customer = new Customer(date, orders);
+        OrderHistory orderHistory = new OrderHistory(date, orders);
 
-        boolean result = EventPolicyType.WEEKEND.canAddEvent(customer);
+        boolean result = EventPolicyType.WEEKEND.canAddEvent(orderHistory);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -86,9 +86,9 @@ class EventPolicyTypeTest {
     void canCustomerReceiveSpecialEvent(int day, String stringOrder, boolean answer) {
         Date date = new Date(day);
         Orders orders = ordersInputParser.parse(stringOrder);
-        Customer customer = new Customer(date, orders);
+        OrderHistory orderHistory = new OrderHistory(date, orders);
 
-        boolean result = EventPolicyType.SPECIAL_DAY.canAddEvent(customer);
+        boolean result = EventPolicyType.SPECIAL_DAY.canAddEvent(orderHistory);
 
         assertThat(result).isEqualTo(answer);
     }
@@ -102,9 +102,9 @@ class EventPolicyTypeTest {
     void canCustomerReceiveGiveawayEvent(int day, String stringOrder, boolean answer) {
         Date date = new Date(day);
         Orders orders = ordersInputParser.parse(stringOrder);
-        Customer customer = new Customer(date, orders);
+        OrderHistory orderHistory = new OrderHistory(date, orders);
 
-        boolean result = EventPolicyType.GIVEAWAY.canAddEvent(customer);
+        boolean result = EventPolicyType.GIVEAWAY.canAddEvent(orderHistory);
 
         assertThat(result).isEqualTo(answer);
     }

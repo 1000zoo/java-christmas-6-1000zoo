@@ -2,9 +2,8 @@ package christmas.controller;
 
 import christmas.configuration.GiveawayMenu;
 import christmas.configuration.InputConfiguration;
-import christmas.domain.Badge;
-import christmas.domain.Customer;
 import christmas.domain.Menu;
+import christmas.domain.OrderHistory;
 import christmas.domain.Orders;
 import christmas.domain.discount.EventPolicies;
 import christmas.dto.BenefitResultDto;
@@ -24,20 +23,13 @@ public class Controller {
     public void start() {
         setGiveawayMenu();
 
-        Customer customer = createCustomer();
-        outputController.printCustomerResults(customer.toDTO());
+        OrderHistory orderHistory = createCustomer();
+        outputController.printCustomerResults(orderHistory.toDTO());
 
-        EventPolicies eventPolicies = createEventPolicies(customer);
+        EventPolicies eventPolicies = createEventPolicies(orderHistory);
         BenefitResultDto benefitResultDto = eventPolicies.createBenefitResultDto();
 
         outputController.printPolicyResult(benefitResultDto);
-        outputController.printTotalBenefitAmount(eventPolicies.getTotalBenefit());
-
-        int afterDiscountAmount = calculateAfterDiscountAmount(customer, eventPolicies);
-        outputController.printAfterDiscount(afterDiscountAmount);
-
-        Badge badge = Badge.findByAmount(customer.calculateTotalPrice());
-        outputController.printBadgeResult(badge);
     }
 
     private void setGiveawayMenu() {
@@ -45,27 +37,29 @@ public class Controller {
         GiveawayMenu.INSTANCE.init(menuInformation);
     }
 
-    private Customer createCustomer() {
+    private OrderHistory createCustomer() {
         outputController.printWelcomeMessage();
         Date date = askVisitDate();
         Orders orders = takeOrder();
-        return new Customer(date, orders);
+        return new OrderHistory(date, orders);
     }
 
     private Date askVisitDate() {
-        return InputConfiguration.createDateInputController().readLine();
+        InputController<Date> dateInputController = InputConfiguration.createDateInputController();
+        return dateInputController.readLine();
     }
 
     private Orders takeOrder() {
-        return InputConfiguration.createOrdersInputController(menu).readLine();
+        InputController<Orders> ordersInputController = InputConfiguration.createOrdersInputController(menu);
+        return ordersInputController.readLine();
     }
 
-    private EventPolicies createEventPolicies(Customer customer) {
-        EventPoliciesController eventPoliciesController = new EventPoliciesController(customer);
+    private EventPolicies createEventPolicies(OrderHistory orderHistory) {
+        EventPoliciesController eventPoliciesController = new EventPoliciesController(orderHistory);
         return eventPoliciesController.createEventPolicies();
     }
 
-    private int calculateAfterDiscountAmount(Customer customer, EventPolicies eventPolicies) {
-        return customer.calculateTotalPrice() - eventPolicies.getDiscountAmount();
+    private int calculateAfterDiscountAmount(OrderHistory orderHistory, EventPolicies eventPolicies) {
+        return orderHistory.calculateTotalPrice() - eventPolicies.getDiscountAmount();
     }
 }
