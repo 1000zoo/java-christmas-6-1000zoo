@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.DelimiterEnum;
 import christmas.vo.MenuInformation;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RepositoryParser implements Parser<List<String>, Map<String, MenuInformation>> {
-
-    private final static String DELIMITER = "/";
 
     private final Map<String, MenuInformation> repository;
 
@@ -29,6 +28,6 @@ public class RepositoryParser implements Parser<List<String>, Map<String, MenuIn
     }
 
     private List<String> split(String input) {
-        return List.of(input.split(DELIMITER));
+        return List.of(input.split(DelimiterEnum.REPOSITORY.getDelimiter()));
     }
 }

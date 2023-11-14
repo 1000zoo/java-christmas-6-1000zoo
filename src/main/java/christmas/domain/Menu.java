@@ -21,12 +21,8 @@ public class Menu {
         GiveawayMenu.INSTANCE.init(getInformationOf(menuName));
     }
 
-    public boolean containsKey(String name) {
-        return repository.containsKey(name);
-    }
-
     public MenuInformation getInformationOf(String name) {
-        if (!containsKey(name)) {
+        if (!repository.containsKey(name)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         return repository.get(name);

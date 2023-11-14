@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.DelimiterEnum;
 import christmas.constant.ErrorMessage;
 import christmas.domain.Menu;
 import christmas.domain.Order;
@@ -9,9 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class OrdersInputParser extends InputParser<Orders> {
-
-    private final static String ORDER_DELIMITER = ",";
-    private final static String INVALID_DELIMITER = ",,";
 
     private final OrderParser orderParser;
     private final List<Order> orders;
@@ -31,7 +29,7 @@ public class OrdersInputParser extends InputParser<Orders> {
         if (input.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
-        if (input.contains(INVALID_DELIMITER)) {
+        if (input.contains(DelimiterEnum.INVALID_ORDERS.getDelimiter())) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
@@ -65,6 +63,6 @@ public class OrdersInputParser extends InputParser<Orders> {
     }
 
     private List<String> splitInput(String input) {
-        return List.of(input.split(ORDER_DELIMITER));
+        return List.of(input.split(DelimiterEnum.ORDERS.getDelimiter()));
     }
 }

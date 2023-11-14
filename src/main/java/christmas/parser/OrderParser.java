@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.DelimiterEnum;
 import christmas.constant.ErrorMessage;
 import christmas.domain.Menu;
 import christmas.domain.Order;
@@ -8,7 +9,6 @@ import java.util.List;
 
 public class OrderParser implements Parser<String, Order> {
 
-    private final static String DELIMITER = "-";
     private final static int MENU_INDEX = 0;
     private final static int QUANTITY_INDEX = 1;
     private final static int SPLIT_LIST_LENGTH = 2;
@@ -28,7 +28,7 @@ public class OrderParser implements Parser<String, Order> {
     }
 
     private List<String> split(String input) {
-        List<String> splitInput = List.of(input.split(DELIMITER));
+        List<String> splitInput = List.of(input.split(DelimiterEnum.ORDER.getDelimiter()));
         if (splitInput.size() != SPLIT_LIST_LENGTH) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
