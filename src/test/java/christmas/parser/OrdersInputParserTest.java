@@ -23,8 +23,7 @@ class OrdersInputParserTest {
     @DisplayName("형식이 잘못되었다면 에러가 발생")
     @ValueSource(strings = {
             "크리스마스파스타,티본스테이크", "크리스마스파스타--1",
-            "제로콜라-1, 타파스-2", "타파스-3-곱빼기", "", "-2",
-            "해산물파스타-2,,"
+            "제로콜라-1, 타파스-2", "타파스-3-곱빼기", "", "-2"
     })
     void invalidInput(String input) {
         assertThrows(
@@ -77,6 +76,26 @@ class OrdersInputParserTest {
     @DisplayName("중복메뉴를 한 번에 안 시키면 에러 발생")
     @ValueSource(strings = {"제로콜라-1,티본스테이크-2,제로콜라-1"})
     void menuMustBeAppearOnce(String input) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> inputParser.parse(input)
+        );
+    }
+
+    @ParameterizedTest
+    @DisplayName("split(',') 와 관련된 에러 모음")
+    @ValueSource(strings = {",티본스테이크-1", "해산물파스타-2,,"})
+    void delimiterExceptions(String input) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> inputParser.parse(input)
+        );
+    }
+
+    @ParameterizedTest
+    @DisplayName("split('-') 와 관련된 에러 모음")
+    @ValueSource(strings = {"티본스테이크--1", "해산물파스타-2-,양송이수프-1"})
+    void orderDelimiterException(String input) {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> inputParser.parse(input)

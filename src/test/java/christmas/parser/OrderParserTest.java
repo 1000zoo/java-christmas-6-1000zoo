@@ -70,6 +70,16 @@ class OrderParserTest {
     }
 
     @ParameterizedTest
+    @DisplayName("하이픈이 두개인 경우 경우 에러 발생")
+    @ValueSource(strings = {"티본스테이크-1-", "해산물파스타--", "타파스--3", "-샴페인-1"})
+    void hasMultipleHyphen(String input) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> parser.parse(input)
+        );
+    }
+
+    @ParameterizedTest
     @DisplayName("정상적인 주문이 들어오면 통과")
     @ValueSource(strings = {"타파스-1"})
     void validOrder(String input) {
