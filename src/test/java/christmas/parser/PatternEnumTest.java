@@ -17,7 +17,7 @@ class PatternEnumTest {
             "a:false",
     }, delimiter = ':')
     void integerPattern(String input, boolean answer) {
-        boolean result = PatternEnum.INTEGER.matches(input);
+        boolean result = PatternEnum.POSITIVE_INTEGER.matches(input);
 
         assertThat(result).isEqualTo(answer);
     }

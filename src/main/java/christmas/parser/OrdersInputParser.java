@@ -19,7 +19,6 @@ public class OrdersInputParser extends InputParser<Orders> {
         orderList = new ArrayList<>();
     }
 
-
     @Override
     public void clear() {
         orderList.clear();

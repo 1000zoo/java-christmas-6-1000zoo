@@ -1,7 +1,7 @@
 package christmas.parser;
 
 public enum PatternEnum {
-    INTEGER("^\\d+$"),
+    POSITIVE_INTEGER("^\\d+$"),
     ORDER("(\\p{IsHangul}+)-(\\d+)"),
     ORDERS("^(\\p{IsHangul}+-\\d+)(,\\p{IsHangul}+-\\d+)*$");
 
