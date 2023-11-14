@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.discount.EventPolicies;
+import christmas.dto.CustomerDTO;
 
 public class Customer {
 
@@ -12,7 +13,11 @@ public class Customer {
         this.eventPolicies = eventPolicies;
     }
 
-    public int calculateAfterDiscountAmount() {
+    private int calculateAfterDiscountAmount() {
         return orderHistory.calculateTotalPrice() - eventPolicies.getDiscountAmount();
+    }
+
+    public CustomerDTO toDTO() {
+        return new CustomerDTO(calculateAfterDiscountAmount(), Badge.findByAmount(orderHistory.calculateTotalPrice()));
     }
 }

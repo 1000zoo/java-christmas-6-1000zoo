@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.configuration.GiveawayMenu;
 import christmas.configuration.InputConfiguration;
+import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.OrderHistory;
 import christmas.domain.Orders;
@@ -28,7 +29,8 @@ public class Controller {
         EventPolicies eventPolicies = createEventPolicies(orderHistory);
         outputController.printPolicyResult(eventPolicies);
 
-
+        Customer customer = new Customer(orderHistory, eventPolicies);
+        outputController.printCustomerResult(customer);
     }
 
     private void setGiveawayMenu() {

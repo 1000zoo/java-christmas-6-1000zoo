@@ -1,8 +1,10 @@
 package christmas.controller;
 
 import christmas.constant.InstructionMessage;
+import christmas.domain.Customer;
 import christmas.domain.OrderHistory;
 import christmas.domain.discount.EventPolicies;
+import christmas.view.CustomerResultPrinter;
 import christmas.view.OrderHistoryPrinter;
 import christmas.view.OutputView;
 import christmas.view.PolicyResultPrinter;
@@ -27,5 +29,10 @@ public class OutputController {
     public void printPolicyResult(EventPolicies eventPolicies) {
         PolicyResultPrinter printer = new PolicyResultPrinter();
         printer.printPolicyResult(eventPolicies.createBenefitResultDto());
+    }
+
+    public void printCustomerResult(Customer customer) {
+        CustomerResultPrinter printer = new CustomerResultPrinter();
+        printer.printCustomerResult(customer.toDTO());
     }
 }
