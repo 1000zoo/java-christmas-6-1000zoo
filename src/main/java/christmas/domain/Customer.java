@@ -1,7 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.discount.EventPolicies;
-import christmas.dto.CustomerDTO;
+import christmas.dto.CustomerDto;
 
 public class Customer {
 
@@ -17,7 +17,7 @@ public class Customer {
         return orderHistory.calculateTotalPrice() - eventPolicies.getDiscountAmount();
     }
 
-    public CustomerDTO toDTO() {
-        return new CustomerDTO(calculateAfterDiscountAmount(), Badge.findByAmount(orderHistory.calculateTotalPrice()));
+    public CustomerDto toDTO() {
+        return new CustomerDto(calculateAfterDiscountAmount(), Badge.findByAmount(orderHistory.calculateTotalPrice()));
     }
 }

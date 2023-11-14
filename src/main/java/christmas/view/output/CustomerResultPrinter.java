@@ -3,11 +3,11 @@ package christmas.view.output;
 import christmas.constant.KoreanWonFormat;
 import christmas.constant.SummaryMessage;
 import christmas.domain.Badge;
-import christmas.dto.CustomerDTO;
+import christmas.dto.CustomerDto;
 
 public class CustomerResultPrinter extends OutputView {
 
-    public void printCustomerResult(CustomerDTO customerDTO) {
+    public void printCustomerResult(CustomerDto customerDTO) {
         printAfterDiscount(customerDTO.afterDiscountPrice());
         printBadgeResult(customerDTO.badge());
     }
