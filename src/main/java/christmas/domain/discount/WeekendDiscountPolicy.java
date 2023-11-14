@@ -1,5 +1,6 @@
 package christmas.domain.discount;
 
+import christmas.constant.DiscountAmountEnum;
 import christmas.dto.PoliciesRequestDto;
 
 public class WeekendDiscountPolicy implements SpecialEventPolicy {

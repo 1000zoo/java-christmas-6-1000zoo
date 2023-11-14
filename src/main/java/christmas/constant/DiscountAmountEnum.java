@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.constant;
 
 public enum DiscountAmountEnum {
     WEEKDAY_DISCOUNT(2023),

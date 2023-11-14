@@ -1,5 +1,6 @@
 package christmas.domain.discount;
 
+import christmas.constant.DiscountAmountEnum;
 import christmas.constant.QuantityEnum;
 import christmas.domain.OrderHistory;
 import christmas.dto.PoliciesRequestDto;
