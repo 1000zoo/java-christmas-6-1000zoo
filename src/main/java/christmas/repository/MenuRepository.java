@@ -20,8 +20,13 @@ public record MenuRepository(Parser<List<String>, Map<String, MenuInformation>> 
             "레드와인/60000/DRINK",
             "샴페인/25000/DRINK"
     );
+    private final static String giveawayMenuName = "샴페인";
 
     public Map<String, MenuInformation> loadRepository() {
         return parser.parse(menuList);
+    }
+
+    public String loadGiveawayMenuName() {
+        return giveawayMenuName;
     }
 }

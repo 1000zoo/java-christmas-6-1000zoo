@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.configuration.GiveawayMenu;
 import christmas.constant.ErrorMessage;
 import christmas.parser.RepositoryParser;
 import christmas.repository.MenuRepository;
@@ -13,6 +14,12 @@ public class Menu {
     public Menu() {
         MenuRepository menuRepository = new MenuRepository(new RepositoryParser());
         repository = menuRepository.loadRepository();
+        setGiveawayMenu();
+    }
+
+    private void setGiveawayMenu() {
+        MenuInformation menuInformation = getInformationOf("샴페인");
+        GiveawayMenu.INSTANCE.init(menuInformation);
     }
 
     public boolean containsKey(String name) {
