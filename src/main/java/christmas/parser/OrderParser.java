@@ -13,26 +13,32 @@ public class OrderParser implements Parser<String, Order> {
     private final static int QUANTITY_INDEX = 1;
     private final static int SPLIT_LIST_LENGTH = 2;
 
-    private final MenuParser menuParser;
+    private final Menu menu;
 
     public OrderParser(Menu menu) {
-        this.menuParser = new MenuParser(menu);
+        this.menu = menu;
     }
 
     @Override
     public Order parse(String input) {
         List<String> stringOrder = split(input);
-        MenuInformation menuInformation = menuParser.parse(stringOrder.get(MENU_INDEX));
+
+        MenuInformation menuInformation = menu.getInformationOf(stringOrder.get(MENU_INDEX));
         int quantity = parseIntOrElseThrow(stringOrder.get(QUANTITY_INDEX));
+
         return new Order(menuInformation, quantity);
     }
 
     private List<String> split(String input) {
         List<String> splitInput = List.of(input.split(DelimiterEnum.ORDER.getDelimiter()));
-        if (splitInput.size() != SPLIT_LIST_LENGTH) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
-        }
+        validate(splitInput.size());
         return splitInput;
+    }
+
+    private void validate(int size) {
+        if (size != SPLIT_LIST_LENGTH) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private int parseIntOrElseThrow(String input) {
