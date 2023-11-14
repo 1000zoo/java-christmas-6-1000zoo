@@ -1,6 +1,5 @@
 package christmas.domain.discount;
 
-import christmas.constant.AmountEnum;
 import christmas.constant.QuantityEnum;
 import christmas.domain.OrderHistory;
 import christmas.dto.PoliciesRequestDto;
@@ -39,7 +38,7 @@ public enum EventPolicyType {
     }
 
     private static boolean isEventApplied(OrderHistory orderHistory) {
-        return orderHistory.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_EVENT.getAmount();
+        return orderHistory.calculateTotalPrice() >= DiscountAmountEnum.MIN_BOUNDARY_FOR_EVENT.getAmount();
     }
 
     private static boolean dDayPolicyPredicate(OrderHistory orderHistory) {
@@ -59,6 +58,6 @@ public enum EventPolicyType {
     }
 
     private static boolean giveawayPolicyPredicate(OrderHistory orderHistory) {
-        return orderHistory.calculateTotalPrice() >= AmountEnum.MIN_BOUNDARY_FOR_GIVEAWAY.getAmount();
+        return orderHistory.calculateTotalPrice() >= DiscountAmountEnum.MIN_BOUNDARY_FOR_GIVEAWAY.getAmount();
     }
 }

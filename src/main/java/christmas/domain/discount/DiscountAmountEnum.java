@@ -1,6 +1,6 @@
-package christmas.constant;
+package christmas.domain.discount;
 
-public enum AmountEnum {
+public enum DiscountAmountEnum {
     WEEKDAY_DISCOUNT(2023),
     WEEKEND_DISCOUNT(2023),
     SPECIAL_DISCOUNT(1000),
@@ -9,7 +9,7 @@ public enum AmountEnum {
 
     private final int amount;
 
-    AmountEnum(int amount) {
+    DiscountAmountEnum(int amount) {
         this.amount = amount;
     }
 

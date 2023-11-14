@@ -1,6 +1,5 @@
 package christmas.domain.discount;
 
-import christmas.constant.AmountEnum;
 import christmas.dto.PoliciesRequestDto;
 
 public class WeekdayDiscountPolicy implements SpecialEventPolicy {
@@ -13,7 +12,7 @@ public class WeekdayDiscountPolicy implements SpecialEventPolicy {
 
     @Override
     public int getDiscountAmount() {
-        return AmountEnum.WEEKDAY_DISCOUNT.getAmount() * policiesRequestDto.countDessert();
+        return DiscountAmountEnum.WEEKDAY_DISCOUNT.getAmount() * policiesRequestDto.countDessert();
     }
 
     @Override
