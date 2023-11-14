@@ -13,10 +13,6 @@ public enum GiveawayMenu {
         }
     }
 
-    public MenuInformation getMenu() {
-        return menuInformation;
-    }
-
     public int getPrice() {
         return menuInformation.price();
     }

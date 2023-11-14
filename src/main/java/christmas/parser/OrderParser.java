@@ -23,25 +23,25 @@ public class OrderParser implements Parser<String, Order> {
         List<String> stringOrder = split(input);
 
         MenuInformation menuInformation = menu.getInformationOf(stringOrder.get(IndicesEnum.MENU.index()));
-        int quantity = parseIntOrElseThrow(stringOrder.get(IndicesEnum.QUANTITY.index()));
+        int quantity = tryParseInt(stringOrder.get(IndicesEnum.QUANTITY.index()));
 
         return new Order(menuInformation, quantity);
     }
 
     private List<String> split(String input) {
         List<String> splitInput = List.of(input.split(DelimiterEnum.ORDER.getDelimiter()));
-        validate(splitInput.size());
+        throwIfInvalidSize(splitInput.size());
 
         return splitInput;
     }
 
-    private void validate(int size) {
+    private void throwIfInvalidSize(int size) {
         if (size != SPLIT_LIST_LENGTH) {
             throw new IllegalArgumentException();
         }
     }
 
-    private int parseIntOrElseThrow(String input) {
+    private int tryParseInt(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException exception) {
