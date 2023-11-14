@@ -10,7 +10,7 @@ class DateInputParserTest {
 
     @ParameterizedTest
     @DisplayName("유효하지 않은 날짜 테스트")
-    @ValueSource(strings = {"-1", "a", "가", "32", "0"})
+    @ValueSource(strings = {"-1", "a", "가", "32", "0", ""})
     void invalidDate(String stringDate) {
         DateInputParser parser = new DateInputParser();
         assertThrows(
@@ -18,5 +18,4 @@ class DateInputParserTest {
                 () -> parser.parse(stringDate)
         );
     }
-
 }

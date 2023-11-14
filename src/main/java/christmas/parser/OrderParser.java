@@ -23,7 +23,8 @@ public class OrderParser implements Parser<String, Order> {
         List<String> stringOrder = split(input);
 
         MenuInformation menuInformation = menu.getInformationOf(stringOrder.get(IndicesEnum.MENU.index()));
-        int quantity = IntegerParser.parse(stringOrder.get(IndicesEnum.QUANTITY.index()));
+        int quantity = IntegerParser.parse(stringOrder.get(IndicesEnum.QUANTITY.index()),
+                ErrorMessage.INVALID_ORDER.getMessage());
 
         return new Order(menuInformation, quantity);
     }
