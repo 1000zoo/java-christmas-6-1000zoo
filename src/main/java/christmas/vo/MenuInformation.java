@@ -1,20 +1,17 @@
 package christmas.vo;
 
+import christmas.constant.IndicesEnum;
 import christmas.domain.MenuType;
 import java.util.List;
 import java.util.Objects;
 
 public record MenuInformation(String name, int price, MenuType menuType) {
 
-    private final static int NAME_INDEX = 0;
-    private final static int PRICE_INDEX = 1;
-    private final static int TYPE_INDEX = 2;
-
     public static MenuInformation of(List<String> information) {
         return new MenuInformation(
-                information.get(NAME_INDEX),
-                Integer.parseInt(information.get(PRICE_INDEX)),
-                MenuType.valueOf(information.get(TYPE_INDEX))
+                information.get(IndicesEnum.NAME.index()),
+                Integer.parseInt(information.get(IndicesEnum.PRICE.index())),
+                MenuType.valueOf(information.get(IndicesEnum.TYPE.index()))
         );
     }
 
