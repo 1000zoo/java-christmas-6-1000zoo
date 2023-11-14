@@ -9,8 +9,7 @@ import christmas.domain.Badge;
 import christmas.domain.discount.EventPolicyType;
 import christmas.dto.BenefitResultDto;
 import christmas.dto.CustomerDto;
-import christmas.dto.OrderDto;
-import christmas.dto.OrdersDto;
+import christmas.view.CustomerResultPrinter;
 import christmas.view.OutputView;
 
 public class OutputController {
@@ -26,28 +25,8 @@ public class OutputController {
     }
 
     public void printCustomerResults(CustomerDto customerDTO) {
-        printDateResult(customerDTO.day());
-        printOrdersResult(customerDTO.ordersDto());
-    }
-
-    private void printDateResult(int day) {
-        outputView.printMessage(ResultFormat.DATE_FORMAT.getFormatMessage(day));
-    }
-
-    private void printOrdersResult(OrdersDto ordersDto) {
-        outputView.printMessage(SummaryMessage.ORDER_MENU.getMessage());
-        ordersDto.orderDtoList().forEach(this::printOrderResult);
-        printTotalAmount(ordersDto.totalPrice());
-    }
-
-    private void printOrderResult(OrderDto orderDTO) {
-        String orderResult = fit(ResultFormat.ORDER_FORMAT, orderDTO.menuName(), orderDTO.quantity());
-        outputView.printMessage(orderResult);
-    }
-
-    private void printTotalAmount(int amount) {
-        outputView.printMessage(SummaryMessage.TOTAL_AMOUNT.getMessage());
-        outputView.printMessage(KoreanWonFormat.PRICE.getAmountMessage(amount));
+        CustomerResultPrinter printer = new CustomerResultPrinter();
+        printer.printCustomerResults(customerDTO);
     }
 
     public void printPolicyResult(BenefitResultDto benefitResultDto) {
