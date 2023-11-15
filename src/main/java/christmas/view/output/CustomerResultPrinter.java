@@ -12,12 +12,12 @@ public class CustomerResultPrinter extends OutputView {
         printBadgeResult(customerDTO.badge());
     }
 
-    public void printAfterDiscount(int amount) {
+    private void printAfterDiscount(int amount) {
         printMessage(SummaryMessage.AFTER_DISCOUNT.getMessage());
         printMessage(fit(KoreanWonFormat.PRICE, amount));
     }
 
-    public void printBadgeResult(Badge badge) {
+    private void printBadgeResult(Badge badge) {
         printMessage(SummaryMessage.BADGE_RESULT.getMessage());
         printMessage(badge.getName());
     }

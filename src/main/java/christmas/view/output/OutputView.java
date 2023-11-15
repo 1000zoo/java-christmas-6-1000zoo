@@ -10,6 +10,10 @@ public class OutputView {
         System.out.println(message);
     }
 
+    protected void printNothing() {
+        printMessage(InstructionMessage.DOES_NOT_EXIST.getMessage());
+    }
+
     protected String fit(KoreanWonFormat koreanWonFormat, int amount) {
         return koreanWonFormat.getAmountMessage(amount);
     }
@@ -18,7 +22,4 @@ public class OutputView {
         return resultFormat.getFormatMessage(objects);
     }
 
-    protected void printNothing() {
-        printMessage(InstructionMessage.DOES_NOT_EXIST.getMessage());
-    }
 }

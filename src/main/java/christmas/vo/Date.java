@@ -20,7 +20,6 @@ public class Date {
         try {
             LocalDate date = LocalDate.of(DateEnum.YEAR.getDateValue(), DateEnum.MONTH.getDateValue(), day);
             return date.getDayOfWeek();
-
         } catch (DateTimeException exception) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
