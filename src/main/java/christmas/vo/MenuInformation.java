@@ -11,7 +11,7 @@ public record MenuInformation(String name, int price, MenuType menuType) {
         return new MenuInformation(
                 information.get(IndicesEnum.NAME.index()),
                 Integer.parseInt(information.get(IndicesEnum.PRICE.index())),
-                MenuType.valueOf(information.get(IndicesEnum.TYPE.index()))
+                MenuType.of(information.get(IndicesEnum.TYPE.index()))
         );
     }
 
