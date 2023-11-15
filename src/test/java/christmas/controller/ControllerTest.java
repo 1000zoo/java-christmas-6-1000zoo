@@ -32,8 +32,8 @@ class ControllerTest extends NsTest {
     })
     void invalidOrdersInput(String input) {
         assertSimpleTest(() -> {
-            runException(input);
-            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            runException("3", input);
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
 
